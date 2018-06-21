@@ -1,10 +1,13 @@
 {
   "name": "portfolio",
   "version": "0.0.0",
+  "engines": {
+    "node": "^8.10.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -48,36 +51,36 @@
     "tslint": "~5.9.1"
   },
   "greenkeeper": {
-   "ignore": [
-     "@angular/animations",
-     "@angular/common",
-     "@angular/compiler",
-     "@angular/core",
-     "@angular/forms",
-     "@angular/http",
-     "@angular/platform-browser",
-     "@angular/platform-browser-dynamic",
-     "@angular/router",
-     "rxjs",
-     "zone.js",
-     "@angular/compiler-cli",
-     "@angular-devkit/build-angular",
-     "typescript",
-     "@angular/cli",
-     "@angular/language-service",
-     "@types/jasmine",
-     "@types/jasminewd2",
-     "@types/node",
-     "jasmine-core",
-     "jasmine-spec-reporter",
-     "karma",
-     "karma-chrome-launcher",
-     "karma-coverage-istanbul-reporter",
-     "karma-jasmine",
-     "karma-jasmine-html-reporter",
-     "protractor",
-     "ts-node",
-     "tslint"
-   ]
- }
+    "ignore": [
+      "@angular/animations",
+      "@angular/common",
+      "@angular/compiler",
+      "@angular/core",
+      "@angular/forms",
+      "@angular/http",
+      "@angular/platform-browser",
+      "@angular/platform-browser-dynamic",
+      "@angular/router",
+      "rxjs",
+      "zone.js",
+      "@angular/compiler-cli",
+      "@angular-devkit/build-angular",
+      "typescript",
+      "@angular/cli",
+      "@angular/language-service",
+      "@types/jasmine",
+      "@types/jasminewd2",
+      "@types/node",
+      "jasmine-core",
+      "jasmine-spec-reporter",
+      "karma",
+      "karma-chrome-launcher",
+      "karma-coverage-istanbul-reporter",
+      "karma-jasmine",
+      "karma-jasmine-html-reporter",
+      "protractor",
+      "ts-node",
+      "tslint"
+    ]
+  }
 }
