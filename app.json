@@ -1,0 +1,14 @@
+{
+   "name": "portfolio",
+   "scripts": {
+     "postdeploy": "npm run build"
+   },
+   "env": {},
+   "formation": {},
+   "addons": [],
+   "buildpacks": [
+     {
+       "url": "heroku/nodejs"
+     }
+   ]
+ }
