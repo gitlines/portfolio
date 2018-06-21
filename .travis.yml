@@ -35,4 +35,5 @@ deploy:
   skip_cleanup: true
   api_key:
     - $HEROKU_TOKEN # Generated running heroku auth:token
-  all_branches: true
+  on:
+    all_branches: true
