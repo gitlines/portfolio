@@ -1,5 +1,7 @@
 # Portfolio
 
+[![Build Status](https://travis-ci.org/samuelfernandez/portfolio.svg?branch=master)](https://travis-ci.org/samuelfernandez/portfolio)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 
 ## Development server

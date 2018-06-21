@@ -24,7 +24,6 @@ cache:
   directories:
      - ./node_modules
 
-
 script:
   - npm run lint
   - xvfb-run -a npm run ci:test
