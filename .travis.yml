@@ -28,3 +28,11 @@ script:
   - npm run lint
   - xvfb-run -a npm run ci:test
   - xvfb-run -a npm run ci:e2e
+
+deploy:
+  provider: heroku
+  app: $HEROKU_APP_DEV
+  skip_cleanup: true
+  api_key:
+    - $HEROKU_TOKEN # Generated running heroku auth:token
+  all_branches: true
