@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "ci:test": "ng test --watch",
-    "ci:e2e": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --prod"
+    "ci:test": "ng test --watch false --browsers ChromeNoSandbox",
+    "ci:e2e": "ng e2e --protractor-config e2e/protractor-ci.conf.js --prod"
   },
   "private": true,
   "dependencies": {
