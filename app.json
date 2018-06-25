@@ -1,5 +1,6 @@
 {
    "name": "portfolio",
+   "repository": "https://github.com/samuelfernandez/portfolio",
    "scripts": {
      "postdeploy": "npm run build"
    },
