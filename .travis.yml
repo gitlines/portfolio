@@ -29,14 +29,11 @@ stages:
 
 jobs:
   include:
-    - stage: test # Linting
-      env: TEST=Lint
-      script:
-        - npm run lint
     
     - stage: test # Unit tests
       env: TEST=Unit tests
       script:
+        - npm run lint
         - npm run ci:test
     
     - stage: test # Unit tests
@@ -47,6 +44,7 @@ jobs:
     - stage: deploy # Deploy to DEV environment
       env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
       if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
+      script: skip # Default script is npm test, which we want to skip
       deploy:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
@@ -59,6 +57,7 @@ jobs:
     - stage: deploy # Deploy to STG environment
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master
+      script: skip # Default script is npm test, which we want to skip
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
@@ -69,6 +68,7 @@ jobs:
     - stage: release # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master # Only for for master build
+      script: skip # Default script is npm test, which we want to skip
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
