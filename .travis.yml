@@ -48,7 +48,6 @@ jobs:
       deploy:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
-        skip_cleanup: true
         api_key:
           - $HEROKU_TOKEN # Generated running heroku auth:token
         on:
@@ -61,7 +60,6 @@ jobs:
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
-        skip_cleanup: true
         api_key:
           - $HEROKU_TOKEN # Generated running heroku auth:token
 
@@ -72,6 +70,5 @@ jobs:
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
-        skip_cleanup: true
         api_key:
           - $HEROKU_TOKEN # Generated running heroku auth:token
