@@ -58,7 +58,7 @@ jobs:
     
     - stage: deploy # Deploy to STG environment
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
-      if: branch = master
+      if: (NOT type = pull_request) AND branch = master
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
@@ -68,7 +68,7 @@ jobs:
 
     - stage: release # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
-      if: (NOT type = pull_request) branch = master # Only for for master build
+      if: (NOT type = pull_request) AND branch = master # Only for for master build
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
