@@ -15,11 +15,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "server": "node server.js",
     "heroku-postbuild": "npm run build",
     "ci:test": "ng test --watch false --browsers ChromeNoSandbox",
     "ci:e2e": "ng e2e --protractor-config e2e/protractor-ci.conf.js --prod"
   },
-  "private": true,
+  "main": "server.js",
   "dependencies": {
     "@angular/animations": "^6.0.3",
     "@angular/common": "^6.0.3",
