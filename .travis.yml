@@ -36,7 +36,7 @@ jobs:
     - stage: test # Unit tests
       env: TEST=Unit tests
       script:
-        - npm ci:test
+        - npm run ci:test
     
     - stage: test # Unit tests
       env: TEST=e2e tests
@@ -44,7 +44,7 @@ jobs:
         - xvfb-run -a npm run ci:e2e
 
     - stage: deploy # Deploy to DEV environment
-      env: ENV=$HEROKU_APP_DEV
+      env: ENV=HEROKU_APP_DEV
       if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
       deploy:
         provider: heroku
