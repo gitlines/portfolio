@@ -25,6 +25,7 @@ cache:
 stages:
   - test
   - deploy
+  - release
 
 jobs:
   include:
@@ -44,7 +45,7 @@ jobs:
         - xvfb-run -a npm run ci:e2e
 
     - stage: deploy # Deploy to DEV environment
-      env: ENV="${HEROKU_APP_DEV}"
+      env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
       if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
       deploy:
         provider: heroku
@@ -54,3 +55,23 @@ jobs:
           - $HEROKU_TOKEN # Generated running heroku auth:token
         on:
           all_branches: true
+    
+    - stage: deploy # Deploy to STG environment
+      env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
+      if: branch = master
+      deploy:
+        provider: heroku
+        app: $HEROKU_APP_STG # This deployment is a pre-release phase
+        skip_cleanup: true
+        api_key:
+          - $HEROKU_TOKEN # Generated running heroku auth:token
+
+    - stage: release # Release to PRD environment
+      env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+      if: (NOT type = pull_request) branch = master # Only for for master build
+      deploy:
+        provider: heroku
+        app: $HEROKU_APP_PRD # This deployment is the release
+        skip_cleanup: true
+        api_key:
+          - $HEROKU_TOKEN # Generated running heroku auth:token
