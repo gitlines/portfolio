@@ -45,6 +45,8 @@ jobs:
       env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
       if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
       script: skip # Default script is npm test, which we want to skip
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote
       deploy:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
@@ -57,6 +59,8 @@ jobs:
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master
       script: skip # Default script is npm test, which we want to skip
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
@@ -67,6 +71,8 @@ jobs:
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master # Only for for master build
       script: skip # Default script is npm test, which we want to skip
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
