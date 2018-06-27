@@ -21,22 +21,12 @@ gulp.task('pagespeed', () => {
   }
 
   // PageSpeed API options
-  const mobileOptions = {
-    nokey: true,
-    strategy: 'mobile',
-    threshold: 0
-  };
-
-  const desktopOptions = {
-    nokey: true,
-    strategy: 'desktop',
-    threshold: 0
-  };
+  const mobileOptions = { nokey: true, strategy: 'mobile', threshold: 0 };
+  const desktopOptions = { nokey: true, strategy: 'desktop', threshold: 0 };
 
   console.log(chalk.green(`Launching PageSpeed Insights audit for url: ${url}`));
 
   // Get the PageSpeed Insights report
-
   let mobileResult = {};
   let desktopResult = {};
 
@@ -52,12 +42,21 @@ gulp.task('pagespeed', () => {
 
     // Post comment to GitHub with audit results
     .then(() => {
+
       // Skip comment if not in Travis CI or not a push event
       if (!process.env.TRAVIS || process.env.TRAVIS_EVENT_TYPE !== 'push') {
         return;
       }
 
-      return github.updateComment('test', 'test');
+      const title = 'PageSpeed Insights';
+      const reportUrl = `https://developers.google.com/speed/pagespeed/insights/?url=${encodeURI(url)}`;
+      const logoUrl = 'https://www.gstatic.com/images/icons/material/product/2x/pagespeed_64dp.png';
+      const body = `<img src="${logoUrl}" height="80px">\n\n` +
+        `Report at [${reportUrl}](${reportUrl})\n\n` +
+        `* Mobile Speed: ${mobileResult.ruleGroups.SPEED.score}%\n` +
+        `* Desktop Speed: ${desktopResult.ruleGroups.SPEED.score}%`;
+
+      return github.comment(title, body);
     })
 
     // Check treshold
@@ -76,9 +75,9 @@ gulp.task('pagespeed', () => {
 
     })
 
-    // Print errors to the console
+    // Print errors to the console and fail
     .catch((err) => {
       console.error(chalk.bold.red(err));
-      return Promise.reject(err);
+      throw new Error(err);
     });
 });
