@@ -53,7 +53,7 @@ gulp.task('pagespeed', () => {
     // Post comment to GitHub with audit results
     .then(() => {
       // Skip comment if not in Travis CI or not a push event
-      if (!process.env.TRAVIS || !process.env.TRAVIS_EVENT_TYPE === 'push') {
+      if (!process.env.TRAVIS || process.env.TRAVIS_EVENT_TYPE !== 'push') {
         return;
       }
 
