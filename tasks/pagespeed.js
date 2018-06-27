@@ -5,7 +5,7 @@ const argv = require('yargs').argv;
 const psi = require('psi');
 const github = require('../lib/github');
 
-gulp.task('pagespeed', () => {
+gulp.task('pagespeed', (done) => {
 
   // Get task parameters
   const url = argv.url;
@@ -30,7 +30,7 @@ gulp.task('pagespeed', () => {
   let mobileResult = {};
   let desktopResult = {};
 
-  return Promise.all([psi.output(url, mobileOptions), psi.output(url, desktopOptions)]) // Console report
+  Promise.all([psi.output(url, mobileOptions), psi.output(url, desktopOptions)]) // Console report
 
     // JSON results
     .then(() => Promise.all([psi(url, mobileOptions), psi(url, desktopOptions)]))
@@ -73,11 +73,13 @@ gulp.task('pagespeed', () => {
         ));
       }
 
-    });
+      done();
+    })
 
     // Print errors to the console and fail
-    /*.catch((err) => {
+    .catch((err) => {
       console.error(chalk.bold.red(err));
-      throw new Error(err);
-    });*/
+      done();
+      throw e; // Throw to exit process with status 1.
+    });
 });
