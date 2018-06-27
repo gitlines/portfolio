@@ -5,7 +5,7 @@ const argv = require('yargs').argv;
 const psi = require('psi');
 const github = require('../lib/github');
 
-gulp.task('pagespeed', (done) => {
+gulp.task('pagespeed', () => {
 
   // Get task parameters
   const url = argv.url;
@@ -72,14 +72,11 @@ gulp.task('pagespeed', (done) => {
           `desktop score ${desktopResult.ruleGroups.SPEED.score}%.`
         ));
       }
-
-      done();
     })
 
     // Print errors to the console and fail
     .catch((err) => {
       console.error(chalk.bold.red(err));
-      done(e);
-      throw e; // Throw to exit process with status 1.
+      process.exit(1); // Throw to exit process with status 1.
     });
 });
