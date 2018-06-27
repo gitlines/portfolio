@@ -73,11 +73,11 @@ gulp.task('pagespeed', () => {
         ));
       }
 
-    })
+    });
 
     // Print errors to the console and fail
-    .catch((err) => {
+    /*.catch((err) => {
       console.error(chalk.bold.red(err));
       throw new Error(err);
-    });
+    });*/
 });
