@@ -75,8 +75,8 @@ gulp.task('pagespeed', () => {
     })
 
     // Print errors to the console and fail
-    .catch((err) => {
+    /*.catch((err) => {
       console.error(chalk.bold.red(err));
       process.exit(1); // Throw to exit process with status 1.
-    });
+    });*/
 });
