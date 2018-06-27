@@ -47,6 +47,7 @@ jobs:
       script: skip # Default script is npm test, which we want to skip
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote
+        - npm run ci:audit-pagespeed
       deploy:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
@@ -61,6 +62,7 @@ jobs:
       script: skip # Default script is npm test, which we want to skip
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote
+        - npm run ci:audit-pagespeed
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
@@ -73,6 +75,7 @@ jobs:
       script: skip # Default script is npm test, which we want to skip
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote
+        - npm run ci:audit-pagespeed
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
