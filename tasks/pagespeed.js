@@ -23,7 +23,7 @@ gulp.task('pagespeed', () => {
   // Get task parameters
   const url = argv.url;
   const github = argv.github;
-  const treshold = Math.min(Math.max(parseInt(argv.treshold), 0), 100);
+  const threshold = Math.min(Math.max(parseInt(argv.threshold), 0), 100);
 
   // Validate url
   const validUrl = /^http(s)?:\/\//;
@@ -43,13 +43,13 @@ gulp.task('pagespeed', () => {
     // JSON results
     .then(() => Promise.all([psi(url, mobileOptions), psi(url, desktopOptions)]))
 
-    // Process results results
+    // Process results
     .then((psiResults) => {
 
       const [mobileResult, desktopResult] = psiResults;
 
-      mobileResult.failedTreshold = treshold && mobileResult.ruleGroups.SPEED.score < treshold;
-      desktopResult.failedTreshold = treshold && desktopResult.ruleGroups.SPEED.score < treshold;
+      mobileResult.failedThreshold = threshold && mobileResult.ruleGroups.SPEED.score < threshold;
+      desktopResult.failedThreshold = threshold && desktopResult.ruleGroups.SPEED.score < threshold;
 
       return [mobileResult, desktopResult];
     })
@@ -70,23 +70,23 @@ gulp.task('pagespeed', () => {
         `* Mobile Speed: ${mobileResult.ruleGroups.SPEED.score}%\n` +
         `* Desktop Speed: ${desktopResult.ruleGroups.SPEED.score}%`;
 
-      if (treshold) {
-         if (mobileResult.failedTreshold || desktopResult.failedTreshold) {
-            body += "\n\n```diff\n--- Audit failed with score < " + treshold + "%\n```";
+      if (threshold) {
+         if (mobileResult.failedThreshold || desktopResult.failedThreshold) {
+            body += "\n\n```diff\n--- Audit failed with score < " + threshold + "%\n```";
          } else {
-            body += "\n\n```diff\n+++ Audit succeeded with score > " + treshold + "%\n```";
+            body += "\n\n```diff\n+++ Audit succeeded with score > " + threshold + "%\n```";
          }
       }
 
       return comment(title, body).then(() => [mobileResult, desktopResult]);
     })
 
-    // Check treshold
+    // Check threshold
     .then(([mobileResult, desktopResult]) => {
 
-      if (mobileResult.failedTreshold || desktopResult.failedTreshold) {
+      if (mobileResult.failedThreshold || desktopResult.failedThreshold) {
         return Promise.reject(new Error(
-          `PageSpeed Insights treshold ${treshold}% not met ` +
+          `PageSpeed Insights threshold ${threshold}% not met ` +
           `with mobile score ${mobileResult.ruleGroups.SPEED.score}% and ` +
           `desktop score ${desktopResult.ruleGroups.SPEED.score}%.`
         ));
