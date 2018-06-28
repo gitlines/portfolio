@@ -7,7 +7,7 @@ const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const comment = require('../lib/github').comment;
 
-// Lighthouse API options
+// Lighthouse key audits
 const performanceAudits = [
   'first-meaningful-paint',
   'first-interactive',
@@ -45,12 +45,7 @@ const launchChromeAndRunLighthouse = (url) => {
 gulp.task('lighthouse', function () {
 
   // Get task parameters
-  const {
-    url,
-    output,
-    threshold,
-    github
-  } = argv;
+  const { url, threshold, github } = argv;
   const runs = Math.min(Math.max(Number(argv.runs) || 1, 1), 5);
 
   // Validate url
@@ -88,6 +83,7 @@ gulp.task('lighthouse', function () {
 
           console.log(chalk.yellow(`   ${reportCategory.name}: ${meanScore}%`));
 
+          // Calculate mean results for performance audits
           reportCategory.audits
             .filter(() => reportCategory.id === 'performance')
             .filter((audit) => performanceAudits.includes(audit.id))
