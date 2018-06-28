@@ -19,7 +19,8 @@
     "heroku-postbuild": "npm run build",
     "ci:test": "ng test --watch=false --browsers ChromeNoSandbox",
     "ci:e2e": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --prod",
-    "ci:e2e-remote": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --dev-server-target= --base-url=$URL"
+    "ci:e2e-remote": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --dev-server-target= --base-url=$URL",
+    "ci:audit-pagespeed": "gulp pagespeed --url=$URL --treshold=$PAGESPEED_TRESHOLD"
   },
   "main": "server.js",
   "dependencies": {
@@ -45,7 +46,10 @@
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "bluebird": "^3.5.1",
+    "chalk": "^2.4.1",
     "codelyzer": "~4.2.1",
+    "gulp": "^4.0.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
@@ -53,10 +57,14 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "octonode": "^0.9.2",
     "protractor": "~5.3.0",
+    "psi": "^3.1.0",
+    "require-dir": "^1.0.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~2.7.2"
+    "typescript": "~2.7.2",
+    "yargs": "^11.0.0"
   },
   "greenkeeper": {
     "ignore": [
