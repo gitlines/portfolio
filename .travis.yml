@@ -23,7 +23,7 @@ cache:
      - ./node_modules
 
 stages:
-  #- test
+  - test
   - deploy
   - release
 
