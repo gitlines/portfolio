@@ -55,6 +55,7 @@ jobs:
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
         - npm run ci:audit-pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
+        - npm run ci:audit-lighthouse -- --github || travis_terminate 1 # Force build failure if audit fails
     
     - stage: deploy # Deploy to STG environment
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
@@ -68,6 +69,7 @@ jobs:
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
         - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
+        - npm run ci:audit-lighthouse || travis_terminate 1 # Force build failure if audit fails
 
     - stage: release # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
@@ -81,3 +83,4 @@ jobs:
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
         - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
+        - npm run ci:audit-lighthouse || travis_terminate 1 # Force build failure if audit fails

@@ -2,7 +2,9 @@
   "name": "portfolio",
   "version": "0.0.4",
   "engines": {
-    "node": "^8.10.0"
+    "node": "^8.10.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.7.0"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,8 @@
     "ci:test": "ng test --watch=false --browsers ChromeNoSandbox",
     "ci:e2e": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --prod",
     "ci:e2e-remote": "ng e2e --protractor-config=e2e/protractor-ci.conf.js --dev-server-target= --base-url=$URL",
-    "ci:audit-pagespeed": "gulp pagespeed --url=$URL --treshold=$PAGESPEED_TRESHOLD"
+    "ci:audit-pagespeed": "gulp pagespeed --url=$URL --threshold=$PAGESPEED_THRESHOLD",
+    "ci:audit-lighthouse": "gulp lighthouse --url=$URL --threshold=$LIGHTHOUSE_THRESHOLD --runs 3"
   },
   "main": "server.js",
   "dependencies": {
@@ -48,6 +51,7 @@
     "@types/node": "~8.9.4",
     "bluebird": "^3.5.1",
     "chalk": "^2.4.1",
+    "chrome-launcher": "^0.10.2",
     "codelyzer": "~4.2.1",
     "gulp": "^4.0.0",
     "jasmine-core": "~2.99.1",
@@ -57,6 +61,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lighthouse": "^2.9.4",
     "octonode": "^0.9.2",
     "protractor": "~5.3.0",
     "psi": "^3.1.0",
