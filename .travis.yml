@@ -45,9 +45,6 @@ jobs:
       env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
       if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
       script: skip # Default script is npm test, which we want to skip
-      after_deploy:
-        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1
-        - npm run ci:audit-pagespeed -- --github || travis_terminate 1
       deploy:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
@@ -55,29 +52,32 @@ jobs:
           - $HEROKU_TOKEN # Generated running heroku auth:token
         on:
           all_branches: true
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
+        - npm run ci:audit-pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
     
     - stage: deploy # Deploy to STG environment
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master
       script: skip # Default script is npm test, which we want to skip
-      after_deploy:
-        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1
-        - npm run ci:audit-pagespeed || travis_terminate 1
       deploy:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
         api_key:
           - $HEROKU_TOKEN # Generated running heroku auth:token
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
+        - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
 
     - stage: release # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master # Only for for master build
       script: skip # Default script is npm test, which we want to skip
-      after_deploy:
-        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1
-        - npm run ci:audit-pagespeed || travis_terminate 1
       deploy:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
         api_key:
           - $HEROKU_TOKEN # Generated running heroku auth:token
+      after_deploy:
+        - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
+        - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
