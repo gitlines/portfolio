@@ -3,12 +3,13 @@ const gulp = require('gulp');
 const chalk = require('chalk');
 const argv = require('yargs').argv;
 const psi = require('psi');
-const github = require('../lib/github');
+const comment = require('../lib/github').comment;
 
-gulp.task('pagespeed', (done) => {
+gulp.task('pagespeed', () => {
 
   // Get task parameters
   const url = argv.url;
+  const github = argv.github;
   const treshold = Math.min(Math.max(parseInt(argv.treshold), 0), 100);
 
   // Validate url
@@ -30,7 +31,7 @@ gulp.task('pagespeed', (done) => {
   let mobileResult = {};
   let desktopResult = {};
 
-  Promise.all([psi.output(url, mobileOptions), psi.output(url, desktopOptions)]) // Console report
+  return Promise.all([psi.output(url, mobileOptions), psi.output(url, desktopOptions)]) // Console report
 
     // JSON results
     .then(() => Promise.all([psi(url, mobileOptions), psi(url, desktopOptions)]))
@@ -43,8 +44,8 @@ gulp.task('pagespeed', (done) => {
     // Post comment to GitHub with audit results
     .then(() => {
 
-      // Skip comment if not in Travis CI or not a push event
-      if (!process.env.TRAVIS || process.env.TRAVIS_EVENT_TYPE !== 'push') {
+      // Skip comment if parameter not passed
+      if (!github) {
         return;
       }
 
@@ -56,7 +57,7 @@ gulp.task('pagespeed', (done) => {
         `* Mobile Speed: ${mobileResult.ruleGroups.SPEED.score}%\n` +
         `* Desktop Speed: ${desktopResult.ruleGroups.SPEED.score}%`;
 
-      return github.comment(title, body);
+      return comment(title, body);
     })
 
     // Check treshold
@@ -75,8 +76,8 @@ gulp.task('pagespeed', (done) => {
     })
 
     // Print errors to the console and fail
-    .catch((err) => {
+    /*.catch((err) => {
       console.error(chalk.bold.red(err));
       done(err); // Exit process with failure
-    });
+    });*/
 });
