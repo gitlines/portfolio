@@ -72,9 +72,9 @@ gulp.task('pagespeed', () => {
 
       if (treshold) {
          if (mobileResult.failedTreshold || desktopResult.failedTreshold) {
-            body += "\n\n```diff\n---Audit failed with score <" + treshold + "%\n```";
+            body += "\n\n```diff\n--- Audit failed with score < " + treshold + "%\n```";
          } else {
-            body += "\n\n```diff\n+++Audit succeeded with score >" + treshold + "%\n```";
+            body += "\n\n```diff\n+++ Audit succeeded with score > " + treshold + "%\n```";
          }
       }
 
