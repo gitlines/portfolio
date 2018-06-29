@@ -2,23 +2,26 @@ const Promise = require('bluebird');
 const gulp = require('gulp');
 const chalk = require('chalk');
 const argv = require('yargs').argv;
-const lighthousePrinter = require('lighthouse/lighthouse-cli/printer');
+// const lighthousePrinter = require('lighthouse/lighthouse-cli/printer');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const comment = require('../lib/github').comment;
 
+// Lighthouse categories
+const categories = ['performance', 'pwa', 'accessibility', 'best-practices', 'seo'];
+
 // Lighthouse key audits
 const performanceAudits = [
   'first-meaningful-paint',
-  'first-interactive',
-  'consistently-interactive',
+  'first-cpu-idle',
+  'interactive',
   'estimated-input-latency',
-  'speed-index-metric'
+  'speed-index'
 ];
 
 // Helper functions
 const getAverageValue = (collection, getValue) => collection
-  .map((item) => parseInt(String(getValue(item)).replace(/,/g, '')))
+  .map((item) => getValue(item))
   .reduce((average, value) => average + value / collection.length, 0)
   .toFixed();
 
@@ -73,33 +76,22 @@ gulp.task('lighthouse', function () {
 
       const lastResult = lighthouseResults[lighthouseResults.length - 1];
 
-      lastResult.reportCategories
-        .forEach((reportCategory) => { // Log report
-          const categoryId = reportCategory.id;
-          const meanScore = getAverageValue(lighthouseResults, (result) => result.reportCategories
-            .filter((category) => category.id === categoryId)
-            .map((category) => category.score)
-          );
-
-          console.log(chalk.yellow(`   ${reportCategory.name}: ${meanScore}%`));
+      categories
+        .map((category) => lastResult.lhr.categories[category])
+        .forEach((category) => { // Log report
+          const meanScore = getAverageValue(lighthouseResults, (result) => result.lhr.categories[category.id].score * 100);
+          console.log(chalk.yellow(`   ${category.title}: ${meanScore}%`));
 
           // Calculate mean results for performance audits
-          reportCategory.audits
-            .filter(() => reportCategory.id === 'performance')
-            .filter((audit) => performanceAudits.includes(audit.id))
-            .forEach((audit) => {
-              const meanDisplayValue = getAverageValue(lighthouseResults, (result) => result.reportCategories
-                .filter((category) => category.id === categoryId)
-                .map((category) => category.audits
-                  .filter(() => reportCategory.id === 'performance')
-                  .filter((category) => audit.id === category.id)
-                  .map((category) => category.result.displayValue)
-                )
-              );
+          if (category.id !== 'performance') {
+            return;
+          }
 
-              return console.log(chalk.yellow(
-                `      ${audit.result.description}: ${meanDisplayValue}`
-              ));
+          performanceAudits
+            .map((audit) => lastResult.lhr.audits[audit])
+            .forEach((audit) => {
+              const meanRawValue = getAverageValue(lighthouseResults, (result) => result.lhr.audits[audit.id].rawValue);
+              return console.log(chalk.yellow(`      ${audit.title}: ${meanRawValue} ms`));
             });
         });
 
@@ -116,16 +108,18 @@ gulp.task('lighthouse', function () {
 
       const title = 'Lighthouse Audit';
       const logoUrl = 'https://github.com/GoogleChrome/lighthouse/raw/master/assets/crx/lighthouse-small.jpg';
-      let body = `<img src="${logoUrl}" height="80px">\n\n` +
-        `Deployed at [${url}](${url})\n\n` +
-        lastResult.reportCategories.map((reportCategory) => {
-          const category = `* ${reportCategory.name}: ${parseInt(reportCategory.score)}%`;
-          const audits = reportCategory.audits
-            .filter(() => reportCategory.id === 'performance')
-            .filter((audit) => performanceAudits.indexOf(audit.id) !== -1)
-            .map((audit) => `     * ${audit.result.description}: ${audit.result.displayValue}`);
+      let body = `<img src="${logoUrl}" height="80px">\n\nDeployed at [${url}](${url})\n\n`;
 
-          return [category, ...audits].join('\n');
+      body += categories
+        .map((category) => lastResult.lhr.categories[category])
+        .map((category) => {
+          const categoryBody = `* ${category.title}: ${parseInt(category.score * 100)}%`;
+
+          const auditsBody = category.id !== 'performance' ? [] : performanceAudits
+            .map((audit) => lastResult.lhr.audits[audit])
+            .map((audit) => `  * ${audit.title}: ${parseInt(audit.rawValue)} ms`);
+
+          return [categoryBody, ...auditsBody].join('\n');
         }).join('\n');
 
       if (threshold) {
