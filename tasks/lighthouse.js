@@ -117,7 +117,7 @@ gulp.task('lighthouse', function () {
 
           const auditsBody = category.id !== 'performance' ? [] : performanceAudits
             .map((audit) => lastResult.lhr.audits[audit])
-            .map((audit) => ` * ${audit.title}: ${parseInt(audit.rawValue)} ms`);
+            .map((audit) => `  * ${audit.title}: ${parseInt(audit.rawValue)} ms`);
 
           return [categoryBody, ...auditsBody].join('\n');
         }).join('\n');
