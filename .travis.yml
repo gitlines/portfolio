@@ -12,7 +12,7 @@ addons:
       - google-chrome-stable
 
 before_install:
-  - "export DISPLAY=:99.0" # Configuration for e2e tests
+  - export DISPLAY=:99.0 # Configuration for e2e tests
   - yarn global add greenkeeper-lockfile@1 # Connection with Greenkeeper
 before_script: greenkeeper-lockfile-update # Connection with Greenkeeper
 after_script: greenkeeper-lockfile-upload # Connection with Greenkeeper
