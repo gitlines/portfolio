@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        // Code Style
+        "editorconfig.editorconfig",
+        "samverschueren.linter-xo",
+        "esbenp.prettier-vscode"
+    ]
+}
