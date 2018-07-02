@@ -3,6 +3,7 @@
       // Code Style
       "editorconfig.editorconfig",
       "samverschueren.linter-xo",
-      "esbenp.prettier-vscode"
+      "esbenp.prettier-vscode",
+      "eg2.tslint"
    ]
 }

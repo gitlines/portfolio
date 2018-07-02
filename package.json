@@ -114,7 +114,7 @@
          "xo --fix",
          "git add"
       ],
-      "*.json": [
+      "*.{json,ts}": [
          "prettier --write",
          "git add"
       ]
