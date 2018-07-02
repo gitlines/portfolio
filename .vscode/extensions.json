@@ -2,8 +2,9 @@
    "recommendations": [
       // Code Style
       "editorconfig.editorconfig",
-      "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "shinnn.stylelint",
       "eg2.tslint"
    ]
 }

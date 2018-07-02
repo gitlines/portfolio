@@ -3,5 +3,8 @@
    "editor.formatOnPaste": true,
    "editor.formatOnSave": true,
    "editor.formatOnType": true,
-   "editor.rulers": [120]
+   "editor.rulers": [120],
+   "css.validate": false,
+   "less.validate": false,
+   "scss.validate": false
 }
