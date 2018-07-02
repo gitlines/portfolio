@@ -1,10 +1,32 @@
 {
    "recommendations": [
+      // Workspace
+      "PKief.material-icon-theme",
+      "IBM.output-colorizer",
+      "CoenraadS.bracket-pair-colorizer",
+
       // Code Style
       "editorconfig.editorconfig",
       "esbenp.prettier-vscode",
       "dbaeumer.vscode-eslint",
       "shinnn.stylelint",
-      "eg2.tslint"
+      "eg2.tslint",
+      "DavidAnson.vscode-markdownlint",
+
+      // Utils
+      "christian-kohler.path-intellisense",
+      "pmneo.tsimporter",
+      "steoates.autoimport",
+      "formulahendry.auto-rename-tag",
+      "formulahendry.auto-close-tag",
+      "mkaufman.htmlhint",
+      "dbaeumer.jshint",
+      "pranaygp.vscode-css-peek",
+      "P-de-Jong.vscode-html-scss",
+      "Zignd.html-css-class-completion",
+      "joelday.docthis",
+      "aaron-bond.better-comments",
+      "bierner.markdown-preview-github-styles",
+      "felixrieseberg.vsc-travis-ci-status"
    ]
 }

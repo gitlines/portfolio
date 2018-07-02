@@ -1,4 +1,5 @@
 {
+   "ignoreFiles": "**/*.html",
    "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
    "rules": {
       "indentation": 3,

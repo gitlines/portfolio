@@ -1,3 +1,4 @@
 {
-   "*.{js,json,ts,scss}": ["prettier --write", "git add"]
+   "*.{js,json,ts,scss}": ["prettier --write", "git add"],
+   "*.{html}": ["js-beautify --type html --replace", "git add"]
 }

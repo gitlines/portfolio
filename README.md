@@ -8,8 +8,6 @@
 [![dependencies Status](https://david-dm.org/samuelfernandez/portfolio/status.svg)](https://david-dm.org/samuelfernandez/portfolio)
 [![devDependencies Status](https://david-dm.org/samuelfernandez/portfolio/dev-status.svg)](https://david-dm.org/samuelfernandez/portfolio?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/samuelfernandez/portfolio.svg)](https://greenkeeper.io/)
-
-[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 </div>

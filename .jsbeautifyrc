@@ -1,0 +1,10 @@
+{
+   "indent_size": 3,
+   "indent_with_tabs": false,
+   "wrap_line_length": 120,
+   "end_with_newline": true,
+   "preserve_newlines": true,
+   "max_preserve_newlines": 4,
+   "keep_array_indentation": true,
+   "wrap_attributes": "auto"
+}

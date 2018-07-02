@@ -1,10 +1,37 @@
 {
+   // Workspace
+   "editor.mouseWheelZoom": true,
+   "editor.minimap.renderCharacters": false,
+   "window.zoomLevel": 1,
+   "workbench.iconTheme": "material-icon-theme",
+   "workbench.colorTheme": "Monokai",
+   "vsicons.dontShowNewVersionMessage": true,
+
    // Code Style
+   "editor.insertSpaces": true,
+   "editor.tabSize": 3,
    "editor.formatOnPaste": true,
    "editor.formatOnSave": true,
    "editor.formatOnType": true,
    "editor.rulers": [120],
+   "typescript.tsdk": "node_modules/typescript/lib",
    "css.validate": false,
    "less.validate": false,
-   "scss.validate": false
+   "scss.validate": false,
+   "html.format.wrapLineLength": 120,
+   "html.format.wrapAttributes": "auto",
+   "html.format.endWithNewline": true,
+
+   // Extensions settings
+   "tslint.rulesDirectory": "./node_modules/codelyzer",
+   "tslint.autoFixOnSave": true,
+   "auto-rename-tag.activationOnLanguage": ["html", "xml"],
+   "autoimport.spaceBetweenBraces": true,
+   "autoimport.autoComplete": true,
+   "jshint.options": {
+      "esversion": 6
+   },
+   "htmlhint.options": {
+      "doctype-first": false
+   }
 }
