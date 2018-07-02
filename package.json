@@ -15,7 +15,7 @@
       "start": "ng serve",
       "build": "ng build --prod",
       "test": "ng test",
-      "lint": "xo && ng lint",
+      "lint": "xo && stylelint **/*.scss && ng lint",
       "e2e": "ng e2e",
       "server": "node server.js",
       "heroku-postbuild": "npm run build",
@@ -70,6 +70,8 @@
       "protractor": "~5.3.0",
       "psi": "^3.1.0",
       "require-dir": "^1.0.0",
+      "stylelint": "^9.3.0",
+      "stylelint-config-prettier": "^3.3.0",
       "ts-node": "~7.0.0",
       "tslint": "~5.10.0",
       "typescript": "~2.7.2",
@@ -114,7 +116,7 @@
          "xo --fix",
          "git add"
       ],
-      "*.{json,ts}": [
+      "*.{json,ts,scss}": [
          "prettier --write",
          "git add"
       ]
@@ -142,5 +144,14 @@
    "prettier": {
       "singleQuote": true,
       "bracketSpacing": true
+   },
+   "stylelint": {
+      "extends": [
+         "stylelint-config-prettier"
+      ],
+      "rules": {
+         "indentation": 3,
+         "string-quotes": "single"
+      }
    }
 }
