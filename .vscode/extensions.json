@@ -2,7 +2,7 @@
    "recommendations": [
       // Code Style
       "editorconfig.editorconfig",
-      "samverschueren.linter-xo",
+      "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
       "eg2.tslint"
    ]

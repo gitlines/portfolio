@@ -15,7 +15,7 @@
       "start": "ng serve",
       "build": "ng build --prod",
       "test": "ng test",
-      "lint": "xo && stylelint **/*.scss && ng lint",
+      "lint": "gulp lint",
       "e2e": "ng e2e",
       "server": "node server.js",
       "heroku-postbuild": "npm run build",
@@ -53,7 +53,14 @@
       "chalk": "^2.4.1",
       "chrome-launcher": "^0.10.2",
       "codelyzer": "~4.4.2",
+      "eslint": "^5.0.1",
+      "eslint-config-prettier": "^2.9.0",
+      "eslint-plugin-import": "^2.13.0",
+      "eslint-plugin-node": "^6.0.1",
+      "eslint-plugin-prettier": "^2.6.1",
+      "eslint-plugin-unicorn": "^4.0.3",
       "gulp": "^4.0.0",
+      "gulp-run-command": "^0.0.9",
       "husky": "^0.14.3",
       "jasmine": "^3.1.0",
       "jasmine-core": "~3.1.0",
@@ -72,10 +79,10 @@
       "require-dir": "^1.0.0",
       "stylelint": "^9.3.0",
       "stylelint-config-prettier": "^3.3.0",
+      "stylelint-config-standard": "^18.2.0",
       "ts-node": "~7.0.0",
       "tslint": "~5.10.0",
       "typescript": "~2.7.2",
-      "xo": "^0.21.1",
       "yargs": "^12.0.1"
    },
    "greenkeeper": {
@@ -110,48 +117,5 @@
          "ts-node",
          "tslint"
       ]
-   },
-   "lint-staged": {
-      "*.js": [
-         "xo --fix",
-         "git add"
-      ],
-      "*.{json,ts,scss}": [
-         "prettier --write",
-         "git add"
-      ]
-   },
-   "xo": {
-      "envs": [
-         "node",
-         "browser",
-         "jasmine"
-      ],
-      "space": 3,
-      "prettier": true,
-      "rules": {
-         "promise/prefer-await-to-then": "off",
-         "no-use-extend-native/no-use-extend-native": "off",
-         "max-nested-callbacks": [
-            "warn",
-            {
-               "max": 5
-            }
-         ],
-         "no-negated-condition": "off"
-      }
-   },
-   "prettier": {
-      "singleQuote": true,
-      "bracketSpacing": true
-   },
-   "stylelint": {
-      "extends": [
-         "stylelint-config-prettier"
-      ],
-      "rules": {
-         "indentation": 3,
-         "string-quotes": "single"
-      }
    }
 }

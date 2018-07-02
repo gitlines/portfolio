@@ -42,7 +42,7 @@ gulp.task('pagespeed', () => {
          .then(() => Promise.all([psi(url, mobileOptions), psi(url, desktopOptions)]))
 
          // Process results
-         .then(psiResults => {
+         .then((psiResults) => {
             const [mobileResult, desktopResult] = psiResults;
 
             mobileResult.failedThreshold = threshold && mobileResult.ruleGroups.SPEED.score < threshold;

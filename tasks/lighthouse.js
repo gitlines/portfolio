@@ -22,23 +22,23 @@ const performanceAudits = [
 // Helper functions
 const getAverageValue = (collection, getValue) =>
    collection
-      .map(item => getValue(item))
+      .map((item) => getValue(item))
       .reduce((average, value) => average + value / collection.length, 0)
       .toFixed();
 
 // Method to run Lighthouse audits
-const launchChromeAndRunLighthouse = url => {
+const launchChromeAndRunLighthouse = (url) => {
    return chromeLauncher
       .launch({
          chromeFlags: ['--headless', '--no-sandbox']
       })
-      .then(chrome => {
+      .then((chrome) => {
          console.log('   Chrome launched, starting audit...');
          console.time('   Lighthouse audit finished in');
          const flags = {
             port: chrome.port
          };
-         return lighthouse(url, flags, null).then(results => {
+         return lighthouse(url, flags, null).then((results) => {
             console.timeEnd('   Lighthouse audit finished in');
             console.log();
             return chrome
@@ -74,16 +74,16 @@ gulp.task('lighthouse', () => {
       )
 
          // Get the Lighthouse results
-         .then(lighthouseResults => {
+         .then((lighthouseResults) => {
             console.log(chalk.green('Audit finished with the following results:'));
 
             const lastResult = lighthouseResults[lighthouseResults.length - 1];
 
-            categories.map(category => lastResult.lhr.categories[category]).forEach(category => {
+            categories.map((category) => lastResult.lhr.categories[category]).forEach((category) => {
                // Log report
                const meanScore = getAverageValue(
                   lighthouseResults,
-                  result => result.lhr.categories[category.id].score * 100
+                  (result) => result.lhr.categories[category.id].score * 100
                );
                console.log(chalk.yellow(`   ${category.title}: ${meanScore}%`));
 
@@ -92,10 +92,10 @@ gulp.task('lighthouse', () => {
                   return;
                }
 
-               performanceAudits.map(audit => lastResult.lhr.audits[audit]).forEach(audit => {
+               performanceAudits.map((audit) => lastResult.lhr.audits[audit]).forEach((audit) => {
                   const meanRawValue = getAverageValue(
                      lighthouseResults,
-                     result => result.lhr.audits[audit.id].rawValue
+                     (result) => result.lhr.audits[audit.id].rawValue
                   );
                   return console.log(chalk.yellow(`      ${audit.title}: ${meanRawValue} ms`));
                });
@@ -105,7 +105,7 @@ gulp.task('lighthouse', () => {
          })
 
          // Post comment to GitHub with audit results
-         .then(lastResult => {
+         .then((lastResult) => {
             // Skip comment if parameter not passed
             if (!github) {
                return lastResult;
@@ -116,16 +116,16 @@ gulp.task('lighthouse', () => {
             let body = `<img src="${logoUrl}" height="80px">\n\nDeployed at [${url}](${url})\n\n`;
 
             body += categories
-               .map(category => lastResult.lhr.categories[category])
-               .map(category => {
+               .map((category) => lastResult.lhr.categories[category])
+               .map((category) => {
                   const categoryBody = `* ${category.title}: ${Math.floor(category.score * 100)}%`;
 
                   const auditsBody =
                      category.id !== 'performance'
                         ? []
                         : performanceAudits
-                             .map(audit => lastResult.lhr.audits[audit])
-                             .map(audit => `  * ${audit.title}: ${Math.floor(audit.rawValue)} ms`);
+                             .map((audit) => lastResult.lhr.audits[audit])
+                             .map((audit) => `  * ${audit.title}: ${Math.floor(audit.rawValue)} ms`);
 
                   return [categoryBody, ...auditsBody].join('\n');
                })
@@ -143,7 +143,7 @@ gulp.task('lighthouse', () => {
          })
 
          // Check threshold
-         .then(lastResult => {
+         .then((lastResult) => {
             if (threshold && lastResult.score < threshold) {
                return Promise.reject(
                   new Error(`Lighthouse audit failed with score ${Math.floor(lastResult.score)}% (<${threshold}%).`)

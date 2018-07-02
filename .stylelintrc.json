@@ -1,0 +1,9 @@
+{
+   "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+   "rules": {
+      "indentation": 3,
+      "max-line-length": 120,
+      "string-quotes": "single",
+      "no-empty-source": null
+   }
+}
