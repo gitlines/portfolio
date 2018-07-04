@@ -1,15 +1,4 @@
 {
    "name": "portfolio",
-   "repository": "https://github.com/samuelfernandez/portfolio",
-   "scripts": {
-      "postdeploy": "npm run build"
-   },
-   "env": {
-      "NODE_ENV": "production"
-   },
-   "buildpacks": [
-      {
-         "url": "heroku/nodejs"
-      }
-   ]
+   "repository": "https://github.com/samuelfernandez/portfolio"
 }

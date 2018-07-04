@@ -27,6 +27,9 @@
       "joelday.docthis",
       "aaron-bond.better-comments",
       "bierner.markdown-preview-github-styles",
-      "felixrieseberg.vsc-travis-ci-status"
+      "felixrieseberg.vsc-travis-ci-status",
+
+      // Docker and Nginx
+      "peterjausovec.vscode-docker"
    ]
 }
