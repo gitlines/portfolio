@@ -45,10 +45,10 @@ jobs:
       script:
         - xvfb-run -a npm run ci:e2e
 
-   - stage: test # Unit tests
-     env: TEST=Docker
-     script:
-       - npm run docker:build
+    - stage: test # Unit tests
+      env: TEST=Docker
+      script:
+        - npm run docker:build
 
     - stage: deploy # Deploy to DEV environment
       env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
