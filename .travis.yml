@@ -40,12 +40,12 @@ jobs:
         - npm run lint
         - npm run ci:test
 
-    - stage: test # Unit tests
+    - stage: test # Integration tests
       env: TEST=e2e tests
       script:
         - xvfb-run -a npm run ci:e2e
 
-    - stage: test # Unit tests
+    - stage: test # Docker build
       env: TEST=Docker
       script:
         - npm run docker:build
