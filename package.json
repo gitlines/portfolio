@@ -16,7 +16,7 @@
       "start": "ng serve",
       "build": "npm run build:client && npm run build:server",
       "build:client": "ng build --prod --build-optimizer",
-      "build:server": "webpack --config webpack.server.config.js",
+      "build:server": "webpack --config webpack.server.config.js --colors",
       "test": "ng test",
       "lint": "gulp lint",
       "e2e": "ng e2e",
