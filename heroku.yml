@@ -1,7 +1,6 @@
 setup:
   config: {}
+
 build:
   docker:
     web: Dockerfile
-release:
-  image: web

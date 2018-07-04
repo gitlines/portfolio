@@ -28,7 +28,7 @@
       "ci:audit-lighthouse": "gulp lighthouse --url=$URL --threshold=$LIGHTHOUSE_THRESHOLD --runs 3",
       "docker:login": "docker login -u $DOCKER_USER --password-stdin",
       "docker:build": "docker build -t $DOCKER_APP .",
-      "docker:run": "docker run -p 5000:5000 -e PORT=5000 $DOCKER_APP",
+      "docker:run": "docker run -p 5000:5000 -e PORT=5000 $DOCKER_APP &",
       "docker:push": "docker push $DOCKER_APP",
       "heroku:login": "heroku container:login",
       "heroku:deploy": "heroku container:push web --app $APP_NAME",
