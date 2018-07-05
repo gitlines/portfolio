@@ -24,6 +24,10 @@ FROM node:8.10-alpine as server
 # Set node in production mode
 ENV NODE_ENV=production
 
+# Install dumb-init to handle termination signals
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
+
 # Set WORKDIR and copy compiled files
 WORKDIR /usr/src/app
 COPY package.json ./
@@ -34,4 +38,4 @@ RUN adduser -D www-data
 USER www-data
 
 # Launch the server
-ENTRYPOINT [ "npm", "run", "server" ]
+CMD ["dumb-init", "node", "server.js"]
