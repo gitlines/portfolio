@@ -61,7 +61,7 @@ jobs:
         provider: heroku
         app: $HEROKU_APP_DEV # This deployment is only for PR
         api_key:
-          - $HEROKU_TOKEN # Generated running heroku auth:token
+          - $HEROKU_TOKEN # Generated running heroku authorizations:create
         on:
           all_branches: true
       after_deploy:
@@ -77,7 +77,7 @@ jobs:
         provider: heroku
         app: $HEROKU_APP_STG # This deployment is a pre-release phase
         api_key:
-          - $HEROKU_TOKEN # Generated running heroku auth:token
+          - $HEROKU_TOKEN # Generated running heroku authorizations:create
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
         - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
@@ -91,7 +91,7 @@ jobs:
         provider: heroku
         app: $HEROKU_APP_PRD # This deployment is the release
         api_key:
-          - $HEROKU_TOKEN # Generated running heroku auth:token
+          - $HEROKU_TOKEN # Generated running heroku authorizations:create
       after_deploy:
         - xvfb-run -a npm run ci:e2e-remote || travis_terminate 1 # Force build failure if tests fail
         - npm run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
