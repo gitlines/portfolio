@@ -30,12 +30,10 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 # Set WORKDIR and copy compiled files
 WORKDIR /usr/src/app
-COPY package.json ./
 COPY --from=builder /usr/src/app/dist .
 
 # Run as a non-root user
-RUN adduser -D www-data
-USER www-data
+USER node
 
 # Launch the server
 CMD ["dumb-init", "node", "server.js"]
