@@ -120,12 +120,15 @@ gulp.task('lighthouse', () => {
                .map((category) => {
                   const categoryBody = `* ${category.title}: ${Math.floor(category.score * 100)}%`;
 
-                  const auditsBody =
-                     category.id !== 'performance'
-                        ? []
-                        : performanceAudits
-                             .map((audit) => lastResult.lhr.audits[audit])
-                             .map((audit) => `  * ${audit.title}: ${Math.floor(audit.rawValue)} ms`);
+                  let auditsBody;
+
+                  if (category.id === 'performance') {
+                     auditsBody = [];
+                  } else {
+                     auditsBody = performanceAudits
+                        .map((audit) => lastResult.lhr.audits[audit])
+                        .map((audit) => `  * ${audit.title}: ${Math.floor(audit.rawValue)} ms`);
+                  }
 
                   return [categoryBody, ...auditsBody].join('\n');
                })

@@ -29,7 +29,8 @@
    "autoimport.spaceBetweenBraces": true,
    "autoimport.autoComplete": true,
    "jshint.options": {
-      "esversion": 6
+      "esversion": 6,
+      "predef": ["-Promise"]
    },
    "htmlhint.options": {
       "doctype-first": false
