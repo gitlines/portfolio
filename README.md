@@ -1,13 +1,17 @@
 # [Portfolio](https://samuel-fernandez.herokuapp.com/)
 
 [![Build Status](https://travis-ci.org/samuelfernandez/portfolio.svg?branch=master)](https://travis-ci.org/samuelfernandez/portfolio)
+[![GitHub version](https://badge.fury.io/gh/samuelfernandez%2Fportfolio.svg)](https://badge.fury.io/gh/samuelfernandez%2Fportfolio)
+[![angular](https://aleen42.github.io/badges/src/angular.svg)](https://angular.io)
+[![docker](https://aleen42.github.io/badges/src/docker.svg)](https://www.docker.com/)
 [![Docker build](https://img.shields.io/docker/build/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
 [![Docker automated](https://img.shields.io/docker/automated/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
-[![GitHub version](https://badge.fury.io/gh/samuelfernandez%2Fportfolio.svg)](https://badge.fury.io/gh/samuelfernandez%2Fportfolio)
 [![dependencies Status](https://david-dm.org/samuelfernandez/portfolio/status.svg)](https://david-dm.org/samuelfernandez/portfolio)
 [![devDependencies Status](https://david-dm.org/samuelfernandez/portfolio/dev-status.svg)](https://david-dm.org/samuelfernandez/portfolio?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/samuelfernandez/portfolio.svg)](https://greenkeeper.io/)
+[![jest](https://aleen42.github.io/badges/src/jest_1.svg)](https://jestjs.io/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+![visual_studio](https://aleen42.github.io/badges/src/visual_studio_code.svg)
 ![license](https://img.shields.io/github/license/samuelfernandez/portfolio.svg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)

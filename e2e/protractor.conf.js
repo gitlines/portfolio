@@ -1,26 +1,38 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
-const { SpecReporter } = require('jasmine-spec-reporter');
-
 exports.config = {
    allScriptsTimeout: 11000,
-   specs: ['./src/**/*.e2e-spec.ts'],
+   specs: ['./features/*.feature'],
    capabilities: {
-      browserName: 'chrome'
+      browserName: 'chrome',
+      chromeOptions: {
+         args: [
+            '--headless', // Use headless mode
+            '--no-sandbox',
+            '--disable-gpu',
+            '--window-size=414,736' // Size of an iPhone 6 Plus
+         ]
+      }
    },
    directConnect: true,
-   baseUrl: 'http://localhost:4200/',
-   framework: 'jasmine',
-   jasmineNodeOpts: {
-      showColors: true,
-      defaultTimeoutInterval: 30000,
-      print() {}
+   baseUrl: 'http://localhost:5000/',
+
+   framework: 'custom',
+   frameworkPath: require.resolve('protractor-cucumber-framework'),
+
+   cucumberOpts: {
+      require: ['./steps/**/*.ts'],
+      tags: [], // Only execute the features or scenarios with tags matching the expression
+      format: ['node_modules/cucumber-pretty'],
+      strict: true,
+      dryRun: false,
+      compiler: []
    },
+
    onPrepare() {
       require('ts-node').register({
-         project: require('path').join(__dirname, './tsconfig.e2e.json')
+         project: 'e2e/tsconfig.e2e.json'
       });
-      jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
    }
 };

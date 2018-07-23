@@ -123,11 +123,11 @@ gulp.task('lighthouse', () => {
                   let auditsBody;
 
                   if (category.id === 'performance') {
-                     auditsBody = [];
-                  } else {
                      auditsBody = performanceAudits
                         .map((audit) => lastResult.lhr.audits[audit])
                         .map((audit) => `  * ${audit.title}: ${Math.floor(audit.rawValue)} ms`);
+                  } else {
+                     auditsBody = [];
                   }
 
                   return [categoryBody, ...auditsBody].join('\n');

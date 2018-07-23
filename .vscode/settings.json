@@ -14,6 +14,9 @@
    "editor.formatOnSave": true,
    "editor.formatOnType": true,
    "editor.rulers": [120],
+   "editor.quickSuggestions": {
+      "strings": true
+   },
    "typescript.tsdk": "node_modules/typescript/lib",
    "css.validate": false,
    "less.validate": false,
@@ -34,5 +37,8 @@
    },
    "htmlhint.options": {
       "doctype-first": false
-   }
+   },
+   "cucumberautocomplete.steps": ["e2e/steps/*.steps.ts"],
+   "cucumberautocomplete.syncfeatures": "e2e/features/*.feature",
+   "cucumberautocomplete.strictGherkinCompletion": true
 }

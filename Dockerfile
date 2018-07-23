@@ -10,12 +10,13 @@ RUN apt-get -qq update && apt-get -qq install -y google-chrome-stable
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn --silent
+RUN yarn run e2e:update-webdriver
 
 # Copy source files and run tests
 COPY . .
-RUN npm run ci:test
-RUN npm run ci:e2e
-RUN npm run build
+RUN yarn run test:ci
+RUN yarn run build
+RUN yarn run server &>/dev/null & sleep 5; yarn run e2e
 
 
 ### Server stage ###

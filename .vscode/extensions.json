@@ -28,6 +28,8 @@
       "aaron-bond.better-comments",
       "bierner.markdown-preview-github-styles",
       "felixrieseberg.vsc-travis-ci-status",
+      "asvetliakov.snapshot-tools",
+      "alexkrechik.cucumberautocomplete",
 
       // Docker and Nginx
       "peterjausovec.vscode-docker"
