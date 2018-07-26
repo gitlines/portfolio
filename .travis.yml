@@ -36,9 +36,16 @@ jobs:
 
     - stage: test # Unit tests
       env: TEST=Unit tests
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter ## Code Climate coverage script
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build ## Code Climate hook
       script:
         - yarn run lint
         - yarn run test:ci
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT ## Code Climate hook
+        - cat ./coverage/lcov.info | codacy-coverage ## Codacy coverage
 
     - stage: test # Integration tests
       env: TEST=e2e tests
