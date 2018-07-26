@@ -136,9 +136,9 @@ gulp.task('lighthouse', () => {
 
             if (threshold) {
                if (lastResult.score < threshold) {
-                  body += '\n\n```diff\n--- Audit failed with score < ' + threshold + '%\n```';
+                  body += '\n\n```diff\n- Audit failed with score < ' + threshold + '%\n```';
                } else {
-                  body += '\n\n```diff\n+++ Audit succeeded with score > ' + threshold + '%\n```';
+                  body += '\n\n```diff\n+ Audit succeeded with score > ' + threshold + '%\n```';
                }
             }
 
