@@ -6,14 +6,16 @@
 [![docker](https://aleen42.github.io/badges/src/docker.svg)](https://www.docker.com/)
 [![Docker build](https://img.shields.io/docker/build/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
 [![Docker automated](https://img.shields.io/docker/automated/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
+
 [![dependencies Status](https://david-dm.org/samuelfernandez/portfolio/status.svg)](https://david-dm.org/samuelfernandez/portfolio)
 [![devDependencies Status](https://david-dm.org/samuelfernandez/portfolio/dev-status.svg)](https://david-dm.org/samuelfernandez/portfolio?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/samuelfernandez/portfolio.svg)](https://greenkeeper.io/)
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/73d6ef266a6f7a3f1265/maintainability)](https://codeclimate.com/github/samuelfernandez/portfolio/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d66ebe6bcb4b4f54924a90451797679f)](https://www.codacy.com/app/samuelfernandez/portfolio?utm_source=github.com&utm_medium=referral&utm_content=samuelfernandez/portfolio&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d66ebe6bcb4b4f54924a90451797679f)](https://www.codacy.com/app/samuelfernandez/portfolio?utm_source=github.com&utm_medium=referral&utm_content=samuelfernandez/portfolio&utm_campaign=Badge_Coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/73d6ef266a6f7a3f1265/maintainability)](https://codeclimate.com/github/samuelfernandez/portfolio/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/73d6ef266a6f7a3f1265/test_coverage)](https://codeclimate.com/github/samuelfernandez/portfolio/test_coverage)
 [![jest](https://aleen42.github.io/badges/src/jest_1.svg)](https://jestjs.io/)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![visual_studio](https://aleen42.github.io/badges/src/visual_studio_code.svg)
 ![license](https://img.shields.io/github/license/samuelfernandez/portfolio.svg)
