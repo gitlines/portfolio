@@ -1,4 +1,6 @@
 const Promise = require('bluebird');
+const path = require('path');
+const fs = require('fs-extra');
 const gulp = require('gulp');
 const chalk = require('chalk');
 const { argv } = require('yargs');
@@ -16,6 +18,9 @@ const desktopOptions = {
    strategy: 'desktop',
    threshold: 0
 };
+
+// PageSpeed report path
+const outputFolder = path.join(process.cwd(), 'docs/pagespeed');
 
 gulp.task('pagespeed', () => {
    // Get task parameters
@@ -76,6 +81,22 @@ gulp.task('pagespeed', () => {
             }
 
             return comment(title, body).then(() => [mobileResult, desktopResult]);
+         })
+
+         // Output JSON results
+         .then(([mobileResult, desktopResult]) => {
+            const outputMobile = path.join(outputFolder, 'mobile.json');
+            const outputDesktop = path.join(outputFolder, 'desktop.json');
+
+            return fs
+               .emptyDir(path.join(outputFolder))
+               .then(() =>
+                  Promise.all([
+                     fs.writeFileSync(outputMobile, JSON.stringify(mobileResult, null, 4), 'utf8'),
+                     fs.writeFileSync(outputDesktop, JSON.stringify(desktopResult, null, 4), 'utf8')
+                  ])
+               )
+               .then(() => [mobileResult, desktopResult]);
          })
 
          // Check threshold

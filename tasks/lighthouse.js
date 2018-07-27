@@ -1,8 +1,10 @@
 const Promise = require('bluebird');
+const path = require('path');
+const fs = require('fs-extra');
 const gulp = require('gulp');
 const chalk = require('chalk');
 const { argv } = require('yargs');
-// Const lighthousePrinter = require('lighthouse/lighthouse-cli/printer');
+const lighthousePrinter = require('lighthouse/lighthouse-cli/printer');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const { comment } = require('../lib/github');
@@ -18,6 +20,9 @@ const performanceAudits = [
    'estimated-input-latency',
    'speed-index'
 ];
+
+// Lighthouse report path
+const outputFolder = path.join(process.cwd(), 'docs/lighthouse');
 
 // Helper functions
 const getAverageValue = (collection, getValue) =>
@@ -36,7 +41,8 @@ const launchChromeAndRunLighthouse = (url) => {
          console.log('   Chrome launched, starting audit...');
          console.time('   Lighthouse audit finished in');
          const flags = {
-            port: chrome.port
+            port: chrome.port,
+            output: ['html', 'json']
          };
          return lighthouse(url, flags, null).then((results) => {
             console.timeEnd('   Lighthouse audit finished in');
@@ -68,10 +74,7 @@ gulp.task('lighthouse', () => {
    // Get the Lighthouse report
 
    return (
-      Promise.mapSeries(
-         [...new Array(runs)], // Iterate over the number of runs...
-         () => launchChromeAndRunLighthouse(argv.url) // ...generating audits in sequence
-      )
+      Promise.mapSeries([...new Array(runs)], () => launchChromeAndRunLighthouse(argv.url)) // Iterate over the number of runs... // ...generating audits in sequence
 
          // Get the Lighthouse results
          .then((lighthouseResults) => {
@@ -143,6 +146,23 @@ gulp.task('lighthouse', () => {
             }
 
             return comment(title, body).then(() => lastResult);
+         })
+
+         // Output report results
+         .then((lastResult) => {
+            const reports = lastResult.report;
+            const htmlPath = path.join(outputFolder, 'index.html');
+            const jsonPath = path.join(outputFolder, 'lighthouse.json');
+
+            return fs
+               .emptyDir(path.join(outputFolder))
+               .then(() =>
+                  Promise.all([
+                     lighthousePrinter.write(reports[0], 'html', htmlPath),
+                     lighthousePrinter.write(reports[1], 'json', jsonPath)
+                  ])
+               )
+               .then(() => lastResult);
          })
 
          // Check threshold
