@@ -30,6 +30,8 @@
       "felixrieseberg.vsc-travis-ci-status",
       "asvetliakov.snapshot-tools",
       "alexkrechik.cucumberautocomplete",
+      "ritwickdey.liveserver",
+      "hdg.live-html-previewer",
 
       // Docker and Nginx
       "peterjausovec.vscode-docker"

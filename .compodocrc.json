@@ -1,0 +1,6 @@
+{
+   "tsconfig": "src/tsconfig.compodoc.json",
+   "output": "docs/compodoc/",
+   "theme": "material",
+   "name": "Portfolio"
+}

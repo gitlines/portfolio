@@ -30,6 +30,7 @@ stages:
   - test
   - deploy
   - release
+  - doc
 
 jobs:
   include:
@@ -43,9 +44,10 @@ jobs:
       script:
         - yarn run lint
         - yarn run test:ci
+        - yarn run test:doc
       after_script:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT ## Code Climate hook
-        - cat ./coverage/lcov.info | codacy-coverage ## Codacy coverage
+        - cat ./docs/coverage/lcov.info | codacy-coverage ## Codacy coverage
 
     - stage: test # Integration tests
       env: TEST=e2e tests
@@ -78,8 +80,8 @@ jobs:
       after_deploy:
         - yarn run e2e:update-webdriver
         - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run ci:audit-pagespeed --github || travis_terminate 1 # Force build failure if audit fails
-        - yarn run ci:audit-lighthouse --github || travis_terminate 1 # Force build failure if audit fails
+        - yarn run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
+        - yarn run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
 
     - stage: deploy # Deploy to STG environment
       env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
@@ -93,8 +95,8 @@ jobs:
       after_deploy:
         - yarn run e2e:update-webdriver
         - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
-        - yarn run ci:audit-lighthouse || travis_terminate 1 # Force build failure if audit fails
+        - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
+        - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
 
     - stage: release # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
@@ -108,5 +110,20 @@ jobs:
       after_deploy:
         - yarn run e2e:update-webdriver
         - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run ci:audit-pagespeed || travis_terminate 1 # Force build failure if audit fails
-        - yarn run ci:audit-lighthouse || travis_terminate 1 # Force build failure if audit fails
+        - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
+        - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
+
+    - stage: doc # Generate documentation after release
+      env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+      if: (NOT type = pull_request) AND branch = master # Only for for master build
+      script:
+        - yarn run test:ci # Generate report from unit tests at /docs/coverage
+        - yarn run e2e:update-webdriver
+        - xvfb-run -a yarn run e2e:remote # Generate report from e2e tests at /docs/cucumber
+        - yarn run compodoc # Generate report from documentation at /docs/compodoc
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          github_token: $GH_TOKEN
+          target_branch: gh-pages
+          local_dir: docs

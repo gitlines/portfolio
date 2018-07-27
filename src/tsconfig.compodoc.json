@@ -1,0 +1,4 @@
+{
+   "extends": "../tsconfig.app.json",
+   "exclude": ["test-jest.ts", "main.ts", "polyfills.ts", "**/environments/**", "**/*.spec.ts"]
+}
