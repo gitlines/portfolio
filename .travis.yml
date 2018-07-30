@@ -30,7 +30,7 @@ stages:
   - test
   - deploy
   - release
-  - doc
+  - documentation
 
 jobs:
   include:
@@ -113,7 +113,7 @@ jobs:
         - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
         - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
 
-    - stage: doc # Generate documentation after release
+    - stage: documentation # Generate documentation after release
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
       if: (NOT type = pull_request) AND branch = master # Only for for master build
       script:
@@ -121,6 +121,8 @@ jobs:
         - yarn run e2e:update-webdriver
         - xvfb-run -a yarn run e2e:remote # Generate report from e2e tests at /docs/cucumber
         - yarn run compodoc # Generate report from documentation at /docs/compodoc
+        - yarn run pagespeed # Generate report from pagespeed at /docs/pagespeed
+        - yarn run lighthouse # Generate report from lighthouse at /docs/lighthouse
       deploy:
         - provider: pages
           skip_cleanup: true
