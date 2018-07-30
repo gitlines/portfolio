@@ -151,15 +151,21 @@ gulp.task('lighthouse', () => {
          // Output report results
          .then((lastResult) => {
             const reports = lastResult.report;
+
             const htmlPath = path.join(outputFolder, 'index.html');
+            const htmlReport = reports[0];
+
             const jsonPath = path.join(outputFolder, 'lighthouse.json');
+            const score = parseInt(lastResult.lhr.categories.performance.score * 100);
+            lastResult.lhr.score = score; // Use as overall score performance
+            const jsonReport = JSON.stringify(lastResult.lhr, null, 2);
 
             return fs
                .emptyDir(path.join(outputFolder))
                .then(() =>
                   Promise.all([
-                     lighthousePrinter.write(reports[0], 'html', htmlPath),
-                     lighthousePrinter.write(reports[1], 'json', jsonPath)
+                     lighthousePrinter.write(htmlReport, 'html', htmlPath),
+                     lighthousePrinter.write(jsonReport, 'json', jsonPath)
                   ])
                )
                .then(() => lastResult);

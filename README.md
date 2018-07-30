@@ -17,6 +17,8 @@
 [![jest](https://aleen42.github.io/badges/src/jest_1.svg)](https://jestjs.io/)
 [![compodoc](https://samuelfernandez.github.io/portfolio/compodoc/images/coverage-badge.svg)](https://samuelfernandez.github.io/portfolio/compodoc/)
 [![cucumber](https://img.shields.io/badge/cucumber-BDD-blue.svg)](https://samuelfernandez.github.io/portfolio/cucumber/)
+[![lighthouse](https://img.shields.io/badge/dynamic/json.svg?label=Lighthouse&url=https://samuelfernandez.github.io/portfolio/lighthouse/lighthouse.json&query=$.score&colorB=blue&suffix=%25)](https://samuelfernandez.github.io/portfolio/lighthouse/)
+[![pagespeed](https://img.shields.io/badge/dynamic/json.svg?label=PageSpeed&url=https://samuelfernandez.github.io/portfolio/pagespeed/mobile.json&query=$.ruleGroups.SPEED.score&colorB=blue&suffix=%25)](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com)
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![visual_studio](https://aleen42.github.io/badges/src/visual_studio_code.svg)
@@ -24,4 +26,11 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-[Specification of implemented features](https://samuelfernandez.github.io/portfolio/cucumber/) using [Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development) with [Cucumber.js](https://github.com/cucumber/cucumber-js).
+## Performance reports
+
+-  [Lighthouse report](https://samuelfernandez.github.io/portfolio/lighthouse/).
+-  [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com).
+
+## App description
+
+-  [Specification of implemented features](https://samuelfernandez.github.io/portfolio/cucumber/) using [Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development) with [Cucumber.js](https://github.com/cucumber/cucumber-js).
