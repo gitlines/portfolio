@@ -1,6 +1,6 @@
 {
    "name": "portfolio",
-   "version": "0.0.8",
+   "version": "0.0.10",
    "description": "Portfolio using a full-stack web frontend based on Angular",
    "keywords": [
       "angular",
