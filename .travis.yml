@@ -108,6 +108,7 @@ jobs:
         - yarn run compodoc # Generate report from documentation at /docs/compodoc
         - yarn run pagespeed # Generate report from pagespeed at /docs/pagespeed
         - yarn run lighthouse # Generate report from lighthouse at /docs/lighthouse
+        - cp -R img docs/ # Copy src imgs to /docs/img
       deploy:
         - provider: pages
           skip_cleanup: true
