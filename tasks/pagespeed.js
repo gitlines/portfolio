@@ -6,6 +6,7 @@ const chalk = require('chalk');
 const { argv } = require('yargs');
 const psi = require('psi');
 const { comment } = require('../lib/github');
+const { generateScoreBadge } = require('../lib/badges');
 
 // PageSpeed API options
 const mobileOptions = {
@@ -93,7 +94,17 @@ gulp.task('pagespeed', () => {
                .then(() =>
                   Promise.all([
                      fs.writeFileSync(outputMobile, JSON.stringify(mobileResult, null, 4), 'utf8'),
-                     fs.writeFileSync(outputDesktop, JSON.stringify(desktopResult, null, 4), 'utf8')
+                     fs.writeFileSync(outputDesktop, JSON.stringify(desktopResult, null, 4), 'utf8'),
+                     generateScoreBadge({
+                        subject: 'PageSpeed Insights Mobile',
+                        score: mobileResult.ruleGroups.SPEED.score,
+                        file: path.join(outputFolder, 'mobile.svg')
+                     }),
+                     generateScoreBadge({
+                        subject: 'PageSpeed Insights Desktop',
+                        score: desktopResult.ruleGroups.SPEED.score,
+                        file: path.join(outputFolder, 'desktop.svg')
+                     })
                   ])
                )
                .then(() => [mobileResult, desktopResult]);

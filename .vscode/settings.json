@@ -10,7 +10,7 @@
    // Code Style
    "editor.insertSpaces": true,
    "editor.tabSize": 3,
-   "editor.formatOnPaste": true,
+   "editor.formatOnPaste": false,
    "editor.formatOnSave": true,
    "editor.formatOnType": false,
    "editor.rulers": [120],

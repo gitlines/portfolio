@@ -8,6 +8,7 @@ const lighthousePrinter = require('lighthouse/lighthouse-cli/printer');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const { comment } = require('../lib/github');
+const { generateScoreBadge } = require('../lib/badges');
 
 // Lighthouse categories
 const categories = ['performance', 'pwa', 'accessibility', 'best-practices', 'seo'];
@@ -148,24 +149,41 @@ gulp.task('lighthouse', () => {
             return comment(title, body).then(() => lastResult);
          })
 
-         // Output report results
+         // Output report results and badges
          .then((lastResult) => {
             const reports = lastResult.report;
-
-            const htmlPath = path.join(outputFolder, 'index.html');
-            const htmlReport = reports[0];
-
-            const jsonPath = path.join(outputFolder, 'lighthouse.json');
-            const score = parseInt(lastResult.lhr.categories.performance.score * 100);
-            lastResult.lhr.score = score; // Use as overall score performance
-            const jsonReport = JSON.stringify(lastResult.lhr, null, 2);
 
             return fs
                .emptyDir(path.join(outputFolder))
                .then(() =>
                   Promise.all([
-                     lighthousePrinter.write(htmlReport, 'html', htmlPath),
-                     lighthousePrinter.write(jsonReport, 'json', jsonPath)
+                     lighthousePrinter.write(reports[0], 'html', path.join(outputFolder, 'index.html')),
+                     lighthousePrinter.write(reports[1], 'json', path.join(outputFolder, 'lighthouse.json')),
+                     generateScoreBadge({
+                        subject: 'Lighthouse Performance',
+                        score: lastResult.lhr.categories.performance.score * 100,
+                        file: path.join(outputFolder, 'performance.svg')
+                     }),
+                     generateScoreBadge({
+                        subject: 'Lighthouse PWA',
+                        score: lastResult.lhr.categories.pwa.score * 100,
+                        file: path.join(outputFolder, 'pwa.svg')
+                     }),
+                     generateScoreBadge({
+                        subject: 'Lighthouse Accessibility',
+                        score: lastResult.lhr.categories.accessibility.score * 100,
+                        file: path.join(outputFolder, 'accessibility.svg')
+                     }),
+                     generateScoreBadge({
+                        subject: 'Lighthouse Best Practices',
+                        score: lastResult.lhr.categories['best-practices'].score * 100,
+                        file: path.join(outputFolder, 'best-practices.svg')
+                     }),
+                     generateScoreBadge({
+                        subject: 'Lighthouse SEO',
+                        score: lastResult.lhr.categories.seo.score * 100,
+                        file: path.join(outputFolder, 'seo.svg')
+                     })
                   ])
                )
                .then(() => lastResult);

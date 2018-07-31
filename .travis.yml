@@ -83,24 +83,9 @@ jobs:
         - yarn run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
         - yarn run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
 
-    - stage: deploy # Deploy to STG environment
-      env: URL=https://samuel-fernandez-stg.herokuapp.com/ # Here we need to make it explicit
-      if: (NOT type = pull_request) AND branch = master
-      script: skip # Default script is npm test, which we want to skip
-      deploy:
-        provider: heroku
-        app: $HEROKU_APP_STG # This deployment is a pre-release phase
-        api_key:
-          - $HEROKU_TOKEN # Generated running heroku authorizations:create
-      after_deploy:
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
-        - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
-
-    - stage: release # Release to PRD environment
+    - stage: deploy # Release to PRD environment
       env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
-      if: (NOT type = pull_request) AND branch = master # Only for for master build
+      if: (NOT type = pull_request) AND branch = master
       script: skip # Default script is npm test, which we want to skip
       deploy:
         provider: heroku
