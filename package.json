@@ -11,7 +11,11 @@
       "docker-compose",
       "pagespeed",
       "lighthouse",
-      "jest"
+      "jest",
+      "compodoc",
+      "codacy",
+      "codeclimate",
+      "cucumber"
    ],
    "homepage": "https://samuel-fernandez.herokuapp.com/",
    "engines": {
