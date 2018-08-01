@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/samuelfernandez/portfolio.svg?branch=master)](https://travis-ci.org/samuelfernandez/portfolio)
 [![GitHub version](https://badge.fury.io/gh/samuelfernandez%2Fportfolio.svg)](https://badge.fury.io/gh/samuelfernandez%2Fportfolio)
-[![angular](https://aleen42.github.io/badges/src/angular.svg)](https://angular.io)
-[![docker](https://aleen42.github.io/badges/src/docker.svg)](https://www.docker.com/)
+[![angular](https://samuelfernandez.github.io/portfolio/img/angular.svg)](https://angular.io)
+[![docker](https://samuelfernandez.github.io/portfolio/img/docker.svg)](https://www.docker.com/)
 [![Docker build](https://img.shields.io/docker/build/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
 [![Docker automated](https://img.shields.io/docker/automated/samuelfernandez/portfolio.svg)](https://hub.docker.com/r/samuelfernandez/portfolio)
 
@@ -14,23 +14,20 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/73d6ef266a6f7a3f1265/maintainability)](https://codeclimate.com/github/samuelfernandez/portfolio/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d66ebe6bcb4b4f54924a90451797679f)](https://www.codacy.com/app/samuelfernandez/portfolio?utm_source=github.com&utm_medium=referral&utm_content=samuelfernandez/portfolio&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d66ebe6bcb4b4f54924a90451797679f)](https://samuelfernandez.github.io/portfolio/coverage/)
-[![jest](https://aleen42.github.io/badges/src/jest_1.svg)](https://jestjs.io/)
+[![jest](https://samuelfernandez.github.io/portfolio/img/jest.svg)](https://jestjs.io/)
 [![compodoc](https://samuelfernandez.github.io/portfolio/compodoc/images/coverage-badge.svg)](https://samuelfernandez.github.io/portfolio/compodoc/)
-[![cucumber](https://img.shields.io/badge/cucumber-BDD-blue.svg)](https://samuelfernandez.github.io/portfolio/cucumber/)
-[![lighthouse](https://img.shields.io/badge/dynamic/json.svg?label=Lighthouse&url=https://samuelfernandez.github.io/portfolio/lighthouse/lighthouse.json&query=$.score&colorB=blue&suffix=%25)](https://samuelfernandez.github.io/portfolio/lighthouse/)
-[![pagespeed](https://img.shields.io/badge/dynamic/json.svg?label=PageSpeed&url=https://samuelfernandez.github.io/portfolio/pagespeed/mobile.json&query=$.ruleGroups.SPEED.score&colorB=blue&suffix=%25)](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com)
+[![cucumber](https://img.shields.io/badge/dynamic/json.svg?label=Cucumber&url=https://samuelfernandez.github.io/portfolio/cucumber/enriched-output.json&query=$.scenarios.total&colorB=blue&suffix=%20scenarios)](https://samuelfernandez.github.io/portfolio/cucumber/)
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-![visual_studio](https://aleen42.github.io/badges/src/visual_studio_code.svg)
-![license](https://img.shields.io/github/license/samuelfernandez/portfolio.svg)
+[![lighthouse performance](https://samuelfernandez.github.io/portfolio/lighthouse/performance.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#performance)
+[![lighthouse pwa](https://samuelfernandez.github.io/portfolio/lighthouse/pwa.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#pwa)
+[![lighthouse accessibility](https://samuelfernandez.github.io/portfolio/lighthouse/accessibility.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#accessibility)
+[![lighthouse best-practices](https://samuelfernandez.github.io/portfolio/lighthouse/best-practices.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#best-practices)
+[![lighthouse seo](https://samuelfernandez.github.io/portfolio/lighthouse/seo.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#seo)
+[![pagespeed mobile](https://samuelfernandez.github.io/portfolio/pagespeed/mobile.svg)](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com&tab=mobile)
+[![pagespeed desktop](https://samuelfernandez.github.io/portfolio/pagespeed/desktop.svg)](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com&tab=desktop)
+
+[![code style: prettier](https://samuelfernandez.github.io/portfolio/img/prettier.svg)](https://github.com/prettier/prettier)
+![visual_studio](https://samuelfernandez.github.io/portfolio/img/visual_studio_code.svg)
+![license](https://samuelfernandez.github.io/portfolio/img/license-mit.svg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-## Performance reports
-
--  [Lighthouse report](https://samuelfernandez.github.io/portfolio/lighthouse/).
--  [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/?url=https://samuel-fernandez.herokuapp.com).
-
-## App description
-
--  [Specification of implemented features](https://samuelfernandez.github.io/portfolio/cucumber/) using [Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development) with [Cucumber.js](https://github.com/cucumber/cucumber-js).
