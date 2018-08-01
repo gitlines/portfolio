@@ -31,3 +31,5 @@
 ![license](https://samuelfernandez.github.io/portfolio/img/license-mit.svg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+Check project's [Wiki](https://github.com/samuelfernandez/portfolio/wiki) to see how this project has been built.
