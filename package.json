@@ -95,7 +95,7 @@
       "eslint-plugin-import": "^2.13.0",
       "eslint-plugin-node": "^7.0.1",
       "eslint-plugin-prettier": "^2.6.1",
-      "eslint-plugin-unicorn": "^5.0.0",
+      "eslint-plugin-unicorn": "^6.0.0",
       "fs-extra": "^7.0.0",
       "gulp": "^4.0.0",
       "gulp-run-command": "^0.0.9",
