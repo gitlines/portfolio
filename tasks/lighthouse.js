@@ -83,27 +83,31 @@ gulp.task('lighthouse', () => {
 
             const lastResult = lighthouseResults[lighthouseResults.length - 1];
 
-            categories.map((category) => lastResult.lhr.categories[category]).forEach((category) => {
-               // Log report
-               const meanScore = getAverageValue(
-                  lighthouseResults,
-                  (result) => result.lhr.categories[category.id].score * 100
-               );
-               console.log(chalk.yellow(`   ${category.title}: ${meanScore}%`));
-
-               // Calculate mean results for performance audits
-               if (category.id !== 'performance') {
-                  return;
-               }
-
-               performanceAudits.map((audit) => lastResult.lhr.audits[audit]).forEach((audit) => {
-                  const meanRawValue = getAverageValue(
+            categories
+               .map((category) => lastResult.lhr.categories[category])
+               .forEach((category) => {
+                  // Log report
+                  const meanScore = getAverageValue(
                      lighthouseResults,
-                     (result) => result.lhr.audits[audit.id].rawValue
+                     (result) => result.lhr.categories[category.id].score * 100
                   );
-                  return console.log(chalk.yellow(`      ${audit.title}: ${meanRawValue} ms`));
+                  console.log(chalk.yellow(`   ${category.title}: ${meanScore}%`));
+
+                  // Calculate mean results for performance audits
+                  if (category.id !== 'performance') {
+                     return;
+                  }
+
+                  performanceAudits
+                     .map((audit) => lastResult.lhr.audits[audit])
+                     .forEach((audit) => {
+                        const meanRawValue = getAverageValue(
+                           lighthouseResults,
+                           (result) => result.lhr.audits[audit.id].rawValue
+                        );
+                        return console.log(chalk.yellow(`      ${audit.title}: ${meanRawValue} ms`));
+                     });
                });
-            });
 
             return lastResult;
          })

@@ -2,10 +2,17 @@
    // Workspace
    "editor.mouseWheelZoom": true,
    "editor.minimap.renderCharacters": false,
+   "editor.snippetSuggestions": "top",
+   "editor.accessibilitySupport": "off",
+   "editor.fontFamily": "Hack",
    "window.zoomLevel": 1,
    "workbench.iconTheme": "material-icon-theme",
    "workbench.colorTheme": "Monokai",
-   "vsicons.dontShowNewVersionMessage": true,
+   "diffEditor.ignoreTrimWhitespace": false,
+   "files.autoSave": "onFocusChange",
+   "git.enableSmartCommit": true,
+   "git.confirmSync": false,
+   "git.autofetch": true,
 
    // Code Style
    "editor.insertSpaces": true,
@@ -16,6 +23,9 @@
    "editor.rulers": [120],
    "editor.quickSuggestions": {
       "strings": true
+   },
+   "editor.codeActionsOnSave": {
+      "source.organizeImports": true
    },
    "typescript.tsdk": "node_modules/typescript/lib",
    "css.validate": false,
@@ -29,6 +39,7 @@
    "tslint.rulesDirectory": "./node_modules/codelyzer",
    "tslint.autoFixOnSave": true,
    "auto-rename-tag.activationOnLanguage": ["html", "xml"],
+   "auto-close-tag.activationOnLanguage": ["html", "xml"],
    "autoimport.spaceBetweenBraces": true,
    "autoimport.autoComplete": true,
    "jshint.options": {

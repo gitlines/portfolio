@@ -23,7 +23,6 @@
       "dbaeumer.jshint",
       "pranaygp.vscode-css-peek",
       "P-de-Jong.vscode-html-scss",
-      "Zignd.html-css-class-completion",
       "joelday.docthis",
       "aaron-bond.better-comments",
       "bierner.markdown-preview-github-styles",
@@ -32,8 +31,16 @@
       "alexkrechik.cucumberautocomplete",
       "ritwickdey.liveserver",
       "hdg.live-html-previewer",
+      "msjsdiag.debugger-for-chrome",
+      "eg2.vscode-npm-script",
 
       // Docker and Nginx
-      "peterjausovec.vscode-docker"
+      "peterjausovec.vscode-docker",
+
+      // Angular
+      "mikael.angular-beastcode",
+      "angular.ng-template",
+      "natewallace.angular2-inline",
+      "cyrilletuzi.angular-schematics"
    ]
 }
