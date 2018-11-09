@@ -15,8 +15,6 @@
 
       // Utils
       "christian-kohler.path-intellisense",
-      "pmneo.tsimporter",
-      "steoates.autoimport",
       "formulahendry.auto-rename-tag",
       "formulahendry.auto-close-tag",
       "mkaufman.htmlhint",

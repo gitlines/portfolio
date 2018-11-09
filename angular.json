@@ -70,6 +70,37 @@
                   "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
                   "exclude": ["**/node_modules/**"]
                }
+            },
+            "server": {
+               "builder": "@angular-devkit/build-angular:server",
+               "options": {
+                  "outputPath": "dist/portfolio-server",
+                  "main": "src/main.server.ts",
+                  "tsConfig": "src/tsconfig.server.json"
+               },
+               "configurations": {
+                  "production": {
+                     "fileReplacements": [
+                        {
+                           "replace": "src/environments/environment.ts",
+                           "with": "src/environments/environment.prod.ts"
+                        }
+                     ]
+                  }
+               }
+            },
+            "app-shell": {
+               "builder": "@angular-devkit/build-angular:app-shell",
+               "options": {
+                  "browserTarget": "portfolio:build",
+                  "serverTarget": "portfolio:server",
+                  "route": "shell"
+               },
+               "configurations": {
+                  "production": {
+                     "browserTarget": "portfolio:build:production"
+                  }
+               }
             }
          }
       }

@@ -13,6 +13,7 @@
    "git.enableSmartCommit": true,
    "git.confirmSync": false,
    "git.autofetch": true,
+   "emmet.includeLanguages": {},
 
    // Code Style
    "editor.insertSpaces": true,
@@ -27,13 +28,14 @@
    "editor.codeActionsOnSave": {
       "source.organizeImports": true
    },
-   "typescript.tsdk": "node_modules/typescript/lib",
+
    "css.validate": false,
    "less.validate": false,
    "scss.validate": false,
    "html.format.wrapLineLength": 120,
    "html.format.wrapAttributes": "auto",
    "html.format.endWithNewline": true,
+   "prettier.disableLanguages": ["html"],
 
    // Extensions settings
    "tslint.rulesDirectory": "./node_modules/codelyzer",

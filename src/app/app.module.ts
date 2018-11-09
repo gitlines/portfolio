@@ -1,12 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { ShellComponent, ShellModule } from './shell';
 
 @NgModule({
-   declarations: [AppComponent],
-   imports: [BrowserModule],
-   providers: [],
-   bootstrap: [AppComponent]
+   imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), ShellModule, AppRoutingModule],
+   exports: [ShellModule],
+   bootstrap: [ShellComponent]
 })
 export class AppModule {}

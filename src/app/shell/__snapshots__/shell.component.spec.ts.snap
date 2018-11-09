@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShellComponent should match the snapshot 1`] = `
+<app-shell
+  title={[Function String]}
+>
+  <h1>
+    Welcome to Portfolio!
+  </h1><router-outlet />
+</app-shell>
+`;

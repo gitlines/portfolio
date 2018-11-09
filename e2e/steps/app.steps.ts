@@ -1,5 +1,5 @@
-import { Before, Given, Then } from 'cucumber';
 import { expect } from 'chai';
+import { Before, Given, Then } from 'cucumber';
 import { AppPage } from './app.po';
 
 let page: AppPage;
@@ -11,5 +11,5 @@ Before(() => {
 Given('I navigate to this site', () => page.navigateTo());
 
 Then('I should see the welcome message', async () =>
-   expect(await page.getParagraphText()).equals('Welcome to portfolio!')
+   expect(await page.getText('app-shell h1')).equals('Welcome to Portfolio!')
 );
