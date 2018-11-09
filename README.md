@@ -15,7 +15,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d66ebe6bcb4b4f54924a90451797679f)](https://www.codacy.com/app/samuelfernandez/portfolio?utm_source=github.com&utm_medium=referral&utm_content=samuelfernandez/portfolio&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d66ebe6bcb4b4f54924a90451797679f)](https://samuelfernandez.github.io/portfolio/coverage/)
 [![jest](https://samuelfernandez.github.io/portfolio/img/jest.svg)](https://jestjs.io/)
-[![compodoc](https://samuelfernandez.github.io/portfolio/compodoc/images/coverage-badge.svg)](https://samuelfernandez.github.io/portfolio/compodoc/)
+[![compodoc](https://samuelfernandez.github.io/portfolio/compodoc/images/coverage-badge-documentation.svg)](https://samuelfernandez.github.io/portfolio/compodoc/)
 [![cucumber](https://img.shields.io/badge/dynamic/json.svg?label=Cucumber&url=https://samuelfernandez.github.io/portfolio/cucumber/enriched-output.json&query=$.scenarios.total&colorB=blue&suffix=%20scenarios)](https://samuelfernandez.github.io/portfolio/cucumber/)
 
 [![lighthouse performance](https://samuelfernandez.github.io/portfolio/lighthouse/performance.svg)](https://samuelfernandez.github.io/portfolio/lighthouse/#performance)
