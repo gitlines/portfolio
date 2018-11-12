@@ -2,116 +2,118 @@ dist: trusty
 sudo: required
 
 language: node_js
-node_js: "8"
+node_js: '8'
 
 services:
-  - docker
+   - docker
 
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-      - docker-ce
+   apt:
+      sources:
+         - google-chrome
+      packages:
+         - google-chrome-stable
+         - docker-ce
 
 before_install:
-  - export DISPLAY=:99.0 # Configuration for e2e tests
-  - yarn global add greenkeeper-lockfile@1 # Connection with Greenkeeper
+   - export DISPLAY=:99.0 # Configuration for e2e tests
+   - yarn global add greenkeeper-lockfile@1 # Connection with Greenkeeper
 before_script: greenkeeper-lockfile-update # Connection with Greenkeeper
 after_script: greenkeeper-lockfile-upload # Connection with Greenkeeper
 
 cache:
-  yarn: true
-  directories:
-     - ./node_modules
+   yarn: true
+   directories:
+      - ./node_modules
 
 stages:
-  - test
-  - deploy
-  - release
-  - documentation
+   - test
+   - deploy
+   - release
+   - documentation
 
 jobs:
-  include:
+   include:
+      - stage: test # Unit tests
+        env: TEST=Unit tests
+        before_script:
+           - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter ## Code Climate coverage script
+           - chmod +x ./cc-test-reporter
+           - ./cc-test-reporter before-build ## Code Climate hook
+        script:
+           - yarn run lint
+           - yarn run test:ci
+           - yarn run test:doc
+        after_script:
+           - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT ## Code Climate hook
+           - cat ./docs/coverage/lcov.info | codacy-coverage ## Codacy coverage
 
-    - stage: test # Unit tests
-      env: TEST=Unit tests
-      before_script:
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter ## Code Climate coverage script
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build ## Code Climate hook
-      script:
-        - yarn run lint
-        - yarn run test:ci
-        - yarn run test:doc
-      after_script:
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT ## Code Climate hook
-        - cat ./docs/coverage/lcov.info | codacy-coverage ## Codacy coverage
+      - stage: test # Integration tests
+        env: TEST=e2e tests
+        script:
+           - yarn run build
+           - yarn run server &>/dev/null &
+           - yarn run e2e:update-webdriver
+           - xvfb-run -a yarn run e2e
 
-    - stage: test # Integration tests
-      env: TEST=e2e tests
-      script:
-        - yarn run build
-        - yarn run server &>/dev/null &
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e
+      - stage: test # Docker build
+        env: TEST=Docker
+        script:
+           - docker build -t $DOCKER_APP .
+           - docker run -d -p 5000:5000 -e PORT=5000 $DOCKER_APP
+           - docker ps -a
+           - yarn run e2e:update-webdriver
+           - xvfb-run -a yarn run e2e
 
-    - stage: test # Docker build
-      env: TEST=Docker
-      script:
-        - docker build -t $DOCKER_APP .
-        - docker run -d -p 5000:5000 -e PORT=5000 $DOCKER_APP
-        - docker ps -a
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e
+      - stage: deploy # Deploy to DEV environment
+        env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
+        if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
+        script: skip # Default script is npm test, which we want to skip
+        deploy:
+           provider: heroku
+           app: $HEROKU_APP_DEV # This deployment is only for PR
+           api_key:
+              - $HEROKU_TOKEN # Generated running heroku authorizations:create
+           on:
+              all_branches: true
+        after_deploy:
+           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - yarn run e2e:update-webdriver
+           - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
+           - yarn run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
+           - yarn run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
 
-    - stage: deploy # Deploy to DEV environment
-      env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
-      if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
-      script: skip # Default script is npm test, which we want to skip
-      deploy:
-        provider: heroku
-        app: $HEROKU_APP_DEV # This deployment is only for PR
-        api_key:
-          - $HEROKU_TOKEN # Generated running heroku authorizations:create
-        on:
-          all_branches: true
-      after_deploy:
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
-        - yarn run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
+      - stage: deploy # Release to PRD environment
+        env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+        if: (NOT type = pull_request) AND branch = master
+        script: skip # Default script is npm test, which we want to skip
+        deploy:
+           provider: heroku
+           app: $HEROKU_APP_PRD # This deployment is the release
+           api_key:
+              - $HEROKU_TOKEN # Generated running heroku authorizations:create
+        after_deploy:
+           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - yarn run e2e:update-webdriver
+           - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
+           - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
+           - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
 
-    - stage: deploy # Release to PRD environment
-      env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
-      if: (NOT type = pull_request) AND branch = master
-      script: skip # Default script is npm test, which we want to skip
-      deploy:
-        provider: heroku
-        app: $HEROKU_APP_PRD # This deployment is the release
-        api_key:
-          - $HEROKU_TOKEN # Generated running heroku authorizations:create
-      after_deploy:
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-        - yarn run pagespeed || travis_terminate 1 # Force build failure if audit fails
-        - yarn run lighthouse || travis_terminate 1 # Force build failure if audit fails
-
-    - stage: documentation # Generate documentation after release
-      env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
-      if: (NOT type = pull_request) AND branch = master # Only for for master build
-      script:
-        - yarn run test:ci # Generate report from unit tests at /docs/coverage
-        - yarn run e2e:update-webdriver
-        - xvfb-run -a yarn run e2e:remote # Generate report from e2e tests at /docs/cucumber
-        - yarn run compodoc # Generate report from documentation at /docs/compodoc
-        - yarn run pagespeed # Generate report from pagespeed at /docs/pagespeed
-        - yarn run lighthouse # Generate report from lighthouse at /docs/lighthouse
-        - cp -R img docs/ # Copy src imgs to /docs/img
-      deploy:
-        - provider: pages
-          skip_cleanup: true
-          github_token: $GH_TOKEN
-          target_branch: gh-pages
-          local_dir: docs
+      - stage: documentation # Generate documentation after release
+        env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+        if: (NOT type = pull_request) AND branch = master # Only for for master build
+        script:
+           - yarn run test:ci # Generate report from unit tests at /docs/coverage
+           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - yarn run e2e:update-webdriver
+           - xvfb-run -a yarn run e2e:remote # Generate report from e2e tests at /docs/cucumber
+           - yarn run compodoc # Generate report from documentation at /docs/compodoc
+           - yarn run pagespeed # Generate report from pagespeed at /docs/pagespeed
+           - yarn run lighthouse # Generate report from lighthouse at /docs/lighthouse
+           - cp -R img docs/ # Copy src imgs to /docs/img
+        deploy:
+           - provider: pages
+             skip_cleanup: true
+             github_token: $GH_TOKEN
+             target_branch: gh-pages
+             local_dir: docs

@@ -14,7 +14,6 @@
       "DavidAnson.vscode-markdownlint",
 
       // Utils
-      "christian-kohler.path-intellisense",
       "formulahendry.auto-rename-tag",
       "formulahendry.auto-close-tag",
       "mkaufman.htmlhint",

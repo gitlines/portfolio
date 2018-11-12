@@ -98,7 +98,8 @@
                },
                "configurations": {
                   "production": {
-                     "browserTarget": "portfolio:build:production"
+                     "browserTarget": "portfolio:build:production",
+                     "serverTarget": "portfolio:server:production"
                   }
                }
             }
