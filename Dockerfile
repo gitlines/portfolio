@@ -9,19 +9,19 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get -qq update \
    && apt-get -qq install google-chrome-stable -y --no-install-recommends \
    && apt-get -qq clean \
-   && rm -rf /var/lib/apt/lists/*
+   && rm -rf /var/lib/apt/lists/* \
+   && npm install -g npm@latest
 
 # Set WORKDIR and install dependencies
 WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
-RUN yarn --silent
-RUN yarn run e2e:update-webdriver
+COPY package.json package-lock.json ./
+RUN npm ci
 
 # Copy source files and run tests
 COPY . .
-RUN yarn run test:ci
-RUN yarn run build
-RUN yarn run server &>/dev/null & sleep 5; yarn run e2e
+RUN npm run test:ci
+RUN npm run build
+RUN npm run server &>/dev/null; npm run e2e:update-webdriver; npm run e2e
 
 
 ### Server stage ###

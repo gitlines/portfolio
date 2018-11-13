@@ -55,7 +55,7 @@ applications.forEach((app) => {
                const substituteHref = (index, element) => {
                   const style = $(element);
                   const href = style.attr('href');
-                  console.log(href, styleMatch.test(href));
+
                   if (styleMatch.test(href)) {
                      const replaceHref = href.replace(styleMatch, '$1$2');
                      styleReplacements[href] = replaceHref;

@@ -36,14 +36,13 @@
    "html.format.wrapAttributes": "auto",
    "html.format.endWithNewline": true,
    "prettier.disableLanguages": ["html"],
+   "prettier.jsxBracketSameLine": true,
 
    // Extensions settings
    "tslint.rulesDirectory": "./node_modules/codelyzer",
    "tslint.autoFixOnSave": true,
    "auto-rename-tag.activationOnLanguage": ["html", "xml"],
    "auto-close-tag.activationOnLanguage": ["html", "xml"],
-   "autoimport.spaceBetweenBraces": true,
-   "autoimport.autoComplete": true,
    "jshint.options": {
       "esversion": 6,
       "predef": ["-Promise"]

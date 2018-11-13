@@ -1,6 +1,6 @@
 {
    "name": "portfolio",
-   "version": "0.0.11",
+   "version": "0.0.12",
    "description": "Portfolio using a full-stack web frontend based on Angular",
    "keywords": [
       "angular",
@@ -15,13 +15,16 @@
       "compodoc",
       "codacy",
       "codeclimate",
-      "cucumber"
+      "cucumber",
+      "app shell",
+      "ssr",
+      "server side rendering",
+      "universal"
    ],
    "homepage": "https://samuel-fernandez.herokuapp.com/",
    "engines": {
       "node": "^8.10.0",
-      "npm": ">=5.0.0",
-      "yarn": ">=1.3.0"
+      "npm": ">=6.0.0"
    },
    "license": "MIT",
    "repository": {
@@ -30,9 +33,9 @@
    },
    "scripts": {
       "precommit": "lint-staged",
-      "postinstall": "yarn run e2e:update-webdriver",
+      "postinstall": "npm run e2e:update-webdriver",
       "start": "ng serve",
-      "build": "yarn run build:client && yarn run build:server && yarn run optimize",
+      "build": "npm run build:client && npm run build:server && npm run optimize",
       "build:client": "ng run portfolio:app-shell:production",
       "build:server": "webpack --config webpack.server.config.js",
       "optimize": "gulp optimize",
@@ -43,7 +46,7 @@
       "lint": "gulp lint",
       "e2e": "protractor e2e/protractor.conf.js",
       "e2e:update-webdriver": "webdriver-manager update --gecko false",
-      "e2e:remote": "yarn run e2e --baseUrl=$URL",
+      "e2e:remote": "npm run e2e -- --baseUrl=$URL",
       "server": "node server.js",
       "pagespeed": "gulp pagespeed --url=$URL --threshold=$PAGESPEED_THRESHOLD",
       "lighthouse": "gulp lighthouse --url=$URL --threshold=$LIGHTHOUSE_THRESHOLD --runs 3",
@@ -53,7 +56,7 @@
       "docker:run": "docker run --rm -it -p 5000:5000 -e PORT=5000 samuelfernandez/portfolio",
       "docker:local": "docker run -it -p 5000:5000 -e PORT=5000 -v \"%cd%\"/dist:/usr/src/app:ro samuelfernandez/portfolio sh",
       "docker:push": "docker push samuelfernandez/portfolio",
-      "docker:compose": "yarn run build && docker-compose up",
+      "docker:compose": "npm run build && docker-compose up",
       "heroku:login": "heroku container:login",
       "heroku:deploy": "heroku container:push web --app $APP_NAME",
       "heroku:release": "heroku container:release web --app $APP_NAME"
@@ -101,6 +104,8 @@
       "codacy-coverage": "^3.0.0",
       "codelyzer": "~4.5.0",
       "critical": "^1.3.4",
+      "cssnano": "^4.1.7",
+      "cssnano-preset-advanced": "^4.0.5",
       "cucumber": "^5.0.2",
       "cucumber-pretty": "^1.4.4",
       "eslint": "^5.0.1",
@@ -112,9 +117,16 @@
       "fs-extra": "^7.0.1",
       "gulp": "^4.0.0",
       "gulp-cheerio": "^0.6.3",
+      "gulp-html-postcss": "^7.1.4",
+      "gulp-imagemin": "^5.0.3",
+      "gulp-inline-source": "^3.2.0",
+      "gulp-postcss": "^8.0.0",
+      "gulp-purifycss": "^0.2.0",
+      "gulp-replace": "^1.0.0",
       "gulp-run-command": "^0.0.9",
       "htmllint-cli": "^0.0.7",
       "husky": "^1.1.2",
+      "imagemin-mozjpeg": "^8.0.0",
       "jest": "^23.6.0",
       "jest-preset-angular": "^6.0.1",
       "js-beautify": "^1.7.5",
@@ -136,8 +148,7 @@
       "tslint": "~5.11.0",
       "tslint-config-prettier": "^1.13.0",
       "typescript": "~3.1.6",
-      "webpack": "^4.20.2",
-      "webpack-cli": "^3.0.8",
+      "webpack-cli": "^3.1.2",
       "yargs": "^12.0.1"
    },
    "greenkeeper": {
@@ -161,7 +172,8 @@
          "@types/node",
          "protractor",
          "ts-node",
-         "tslint"
+         "tslint",
+         "webpack"
       ]
    }
 }

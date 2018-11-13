@@ -1,5 +1,7 @@
 const path = require('path');
-const webpack = require('webpack');
+/* eslint-disable node/no-missing-require, node/no-extraneous-require */
+const webpack = require('webpack'); // We use the webpack installed by angular devkit
+/* eslint-enable node/no-missing-require, node/no-extraneous-require */
 
 module.exports = {
    entry: { server: './server.js' },
