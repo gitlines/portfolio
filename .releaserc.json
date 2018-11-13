@@ -1,7 +1,6 @@
 {
-   "release": {
-      "branch": "master"
-   },
+   "branch": "master",
+   "repositoryUrl": "https://github.com/samuelfernandez/portfolio",
    "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
