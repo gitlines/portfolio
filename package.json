@@ -1,6 +1,6 @@
 {
    "name": "portfolio",
-   "version": "0.0.12",
+   "version": "0.0.0-development",
    "description": "Portfolio using a full-stack web frontend based on Angular",
    "keywords": [
       "angular",
@@ -60,7 +60,8 @@
       "docker:compose": "npm run build && docker-compose up",
       "heroku:login": "heroku container:login",
       "heroku:deploy": "heroku container:push web --app $APP_NAME",
-      "heroku:release": "heroku container:release web --app $APP_NAME"
+      "heroku:release": "heroku container:release web --app $APP_NAME",
+      "semantic-release": "semantic-release"
    },
    "main": "server.js",
    "dependencies": {
@@ -144,6 +145,7 @@
       "psi": "^3.1.0",
       "require-dir": "^1.0.0",
       "rxjs-tslint": "^0.1.5",
+      "semantic-release": "^15.11.0",
       "stylelint": "^9.3.0",
       "stylelint-config-prettier": "^4.0.0",
       "stylelint-config-standard": "^18.2.0",
