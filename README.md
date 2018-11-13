@@ -28,6 +28,8 @@
 
 [![code style: prettier](https://samuelfernandez.github.io/portfolio/img/prettier.svg)](https://github.com/prettier/prettier)
 ![visual_studio](https://samuelfernandez.github.io/portfolio/img/visual_studio_code.svg)
+[![Commitizen friendly](https://samuelfernandez.github.io/portfolio/img/commitizen.svg)](http://commitizen.github.io/cz-cli/)
+[![semantic-release](https://samuelfernandez.github.io/portfolio/img/semantic-release.svg)](https://github.com/semantic-release/semantic-release)
 ![license](https://samuelfernandez.github.io/portfolio/img/license-mit.svg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
