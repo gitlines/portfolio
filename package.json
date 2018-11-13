@@ -34,6 +34,7 @@
    "scripts": {
       "precommit": "lint-staged",
       "commitmsg": "validate-commit-msg",
+      "commit": "git-cz",
       "postinstall": "npm run e2e:update-webdriver",
       "start": "ng serve",
       "build": "npm run build:client && npm run build:server && npm run optimize",

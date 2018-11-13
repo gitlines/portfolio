@@ -85,15 +85,19 @@ jobs:
            - npm run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
 
-      - stage: deploy # Release to PRD environment
+      - stage: release # Release to PRD environment
         env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
         if: (NOT type = pull_request) AND branch = master
         script: skip # Default script is npm test, which we want to skip
         deploy:
-           provider: heroku
-           app: $HEROKU_APP_PRD # This deployment is the release
-           api_key:
-              - $HEROKU_TOKEN # Generated running heroku authorizations:create
+           - provider: heroku
+             app: $HEROKU_APP_PRD # This deployment is the release
+             api_key:
+                - $HEROKU_TOKEN # Generated running heroku authorizations:create
+           - provider: script
+             skip_cleanup: true
+             script:
+                - npx semantic-release
         after_deploy:
            - curl $URL > /dev/null # Start Heroku server by accessing it
            - npm run e2e:update-webdriver
