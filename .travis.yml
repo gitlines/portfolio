@@ -82,8 +82,8 @@ jobs:
            - curl $URL > /dev/null # Start Heroku server by accessing it
            - npm run e2e:update-webdriver
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
-           - npm run pagespeed --github || travis_terminate 1 # Force build failure if audit fails
-           - npm run lighthouse --github || travis_terminate 1 # Force build failure if audit fails
+           - npm run pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
+           - npm run lighthouse -- --github || travis_terminate 1 # Force build failure if audit fails
 
       - stage: release # Release to PRD environment
         env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
