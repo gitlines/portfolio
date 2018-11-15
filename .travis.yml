@@ -20,7 +20,7 @@ before_install:
    - npm install -g npm@latest # Update npm
    - npm install -g greenkeeper-lockfile # Connection with Greenkeeper
 install:
-   - npm ci
+   - case $TRAVIS_BRANCH in greenkeeper*) npm install;; *) npm ci;; esac; # Greenkeeper branches should use npm install, otherwise npm ci
 before_script: greenkeeper-lockfile-update # Connection with Greenkeeper
 after_script: greenkeeper-lockfile-upload # Connection with Greenkeeper
 

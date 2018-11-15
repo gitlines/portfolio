@@ -1,0 +1,18 @@
+{
+   "types": [
+      "feat",
+      "fix",
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "chore",
+      "revert"
+   ],
+   "warnOnFail": false,
+   "maxSubjectLength": 100,
+   "subjectPattern": ".+",
+   "subjectPatternErrorMsg": "Subject must be in format 'Commit message'",
+   "helpMessage": ""
+}

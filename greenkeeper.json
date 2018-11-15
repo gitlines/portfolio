@@ -1,0 +1,25 @@
+{
+   "ignore": [
+      "@angular/animations",
+      "@angular/common",
+      "@angular/compiler",
+      "@angular/core",
+      "@angular/forms",
+      "@angular/http",
+      "@angular/platform-browser",
+      "@angular/platform-browser-dynamic",
+      "@angular/router",
+      "rxjs",
+      "zone.js",
+      "@angular/compiler-cli",
+      "@angular-devkit/build-angular",
+      "typescript",
+      "@angular/cli",
+      "@angular/language-service",
+      "@types/node",
+      "protractor",
+      "ts-node",
+      "tslint",
+      "webpack"
+   ]
+}
