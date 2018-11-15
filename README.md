@@ -35,3 +35,9 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 Check project's [Wiki](https://github.com/samuelfernandez/portfolio/wiki) to see how this project has been built.
+
+## Administration links
+
+-  [Google Analytics](https://analytics.google.com/analytics/web/#/)
+-  [Google Tag Manager](https://tagmanager.google.com)
+-  [Google Search Console](https://search.google.com/search-console/welcome)

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
 
 /**
  * Component used as app's shell.
@@ -17,5 +19,9 @@ export class ShellComponent {
    /**
     * Creates an instance of ShellComponent.
     */
-   constructor() {}
+   constructor(@Inject(PLATFORM_ID) private platform: any, private angulartics: Angulartics2GoogleGlobalSiteTag) {
+      if (isPlatformBrowser(platform)) {
+         angulartics.startTracking();
+      }
+   }
 }

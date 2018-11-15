@@ -5,7 +5,7 @@ module.exports = {
    testURL: 'http://localhost', // https://github.com/facebook/jest/issues/6766
    collectCoverage: true,
    coverageReporters: ['json', 'lcov', 'html', 'text', 'text-summary'],
-   coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/src/test-jest.ts'],
+   coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/src/test-jest.ts', '.*\\.snap'],
    coverageThreshold: {
       global: {
          branches: 60,

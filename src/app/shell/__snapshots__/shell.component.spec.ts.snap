@@ -1,7 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ShellComponent should match the snapshot 1`] = `
+exports[`ShellComponent in browser should match the snapshot 1`] = `
 <app-shell
+  angulartics={[Function MockAngulartics]}
+  platform={[Function String]}
+  title={[Function String]}
+>
+  <h1>
+    Welcome to Portfolio!
+  </h1><router-outlet />
+</app-shell>
+`;
+
+exports[`ShellComponent in server should match the snapshot 1`] = `
+<app-shell
+  angulartics={[Function MockAngulartics]}
+  platform={[Function String]}
   title={[Function String]}
 >
   <h1>

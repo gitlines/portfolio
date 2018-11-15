@@ -43,7 +43,26 @@
                      "extractLicenses": true,
                      "vendorChunk": false,
                      "buildOptimizer": true,
-                     "serviceWorker": true
+                     "serviceWorker": true,
+                     "budgets": [
+                        {
+                           "type": "bundle",
+                           "name": "main",
+                           "maximumWarning": "300kb",
+                           "maximumError": "500kb"
+                        },
+                        {
+                           "type": "bundle",
+                           "name": "polyfills",
+                           "maximumWarning": "80kb",
+                           "maximumError": "150kb"
+                        },
+                        {
+                           "type": "all",
+                           "maximumWarning": "500kb",
+                           "maximumError": "800kb"
+                        }
+                     ]
                   }
                }
             },
