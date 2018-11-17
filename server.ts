@@ -10,6 +10,7 @@ import * as isHeroku from 'is-heroku';
 import * as morgan from 'morgan';
 import { join, resolve } from 'path';
 import 'reflect-metadata';
+import * as request from 'request';
 import * as favicon from 'serve-favicon';
 import 'zone.js/dist/zone-node';
 import { cache } from './server/cache';
@@ -31,7 +32,7 @@ const SERVE_FOLDER = resolve(process.cwd(), DIST_FOLDER, APP_NAME); // Path of t
 app.use(favicon(join(SERVE_FOLDER, 'favicon.ico')));
 
 // Log requests
-app.use(morgan('dev'));
+app.use(morgan(':method :url :status :response-time ms :res[content-length] :referrer :user-agent'));
 
 // Redirect to https if running in production
 if (isHeroku) {
@@ -82,4 +83,9 @@ app.get('*', cache(3600), (req, res) => {
 });
 
 // Start up the Node server
-app.listen(PORT, HOST, () => console.log(`App running on http://localhost:${PORT}`));
+app.listen(PORT, HOST, () => {
+   console.log(`App running on http://localhost:${PORT}`);
+
+   // Trigger a request to warm-up cache
+   request(`http://localhost:${PORT}`);
+});

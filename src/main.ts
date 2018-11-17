@@ -7,7 +7,11 @@ if (environment.production) {
    enableProdMode();
 
    // Skip Google Analytics script for Page Speed Insights and Lighthouse
-   if (navigator.userAgent.indexOf('Speed Insights') === -1 && navigator.userAgent.indexOf('HeadlessChrome') === -1) {
+   if (
+      navigator.userAgent.indexOf('Lighthouse') === -1 &&
+      navigator.userAgent.indexOf('Headless') === -1 &&
+      document.location.href.indexOf('localhost') === -1
+   ) {
       // Insert Google Analytics script
       const head: HTMLHeadElement = document.getElementsByTagName('head')[0];
 
