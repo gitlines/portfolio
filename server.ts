@@ -12,6 +12,7 @@ import { join, resolve } from 'path';
 import 'reflect-metadata';
 import * as favicon from 'serve-favicon';
 import 'zone.js/dist/zone-node';
+import { cache } from './server/cache';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -19,7 +20,7 @@ enableProdMode();
 // Express server
 const app = express();
 
-const PORT = process.env.PORT || 5000; // In Heroku port is assigned with an env variable
+const PORT = parseInt(process.env.PORT) || 5000; // In Heroku port is assigned with an env variable
 const HOST = '0.0.0.0';
 
 const APP_NAME = 'portfolio';
@@ -75,8 +76,8 @@ app.get('/api/*', (req, res) => {
 // Server static files from /browser
 app.get('*.*', express.static(SERVE_FOLDER));
 
-// All regular routes use the Universal engine
-app.get('*', (req, res) => {
+// All regular routes use the Universal engine, cached for 1h
+app.get('*', cache(3600), (req, res) => {
    res.render('index', { req });
 });
 

@@ -10,10 +10,12 @@
    "workbench.colorTheme": "Monokai",
    "diffEditor.ignoreTrimWhitespace": false,
    "files.autoSave": "onFocusChange",
+   "files.eol": "\n",
    "git.enableSmartCommit": true,
    "git.confirmSync": false,
    "git.autofetch": true,
    "emmet.includeLanguages": {},
+   "npm.enableScriptExplorer": true,
 
    // Code Style
    "editor.insertSpaces": true,

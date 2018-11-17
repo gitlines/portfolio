@@ -6,18 +6,21 @@ import { environment } from './environments/environment';
 if (environment.production) {
    enableProdMode();
 
-   // Insert Angulartics script
-   const head: HTMLHeadElement = document.getElementsByTagName('head')[0];
+   // Skip Google Analytics script for Page Speed Insights and Lighthouse
+   if (navigator.userAgent.indexOf('Speed Insights') === -1 && navigator.userAgent.indexOf('HeadlessChrome') === -1) {
+      // Insert Google Analytics script
+      const head: HTMLHeadElement = document.getElementsByTagName('head')[0];
 
-   const gtmScript: HTMLScriptElement = document.createElement('script');
-   gtmScript.innerHTML = `
+      const gtmScript: HTMLScriptElement = document.createElement('script');
+      gtmScript.innerHTML = `
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5QWK985');
    `;
-   head.appendChild(gtmScript);
+      head.appendChild(gtmScript);
+   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
