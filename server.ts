@@ -2,6 +2,7 @@ import { enableProdMode } from '@angular/core';
 import { renderModuleFactory } from '@angular/platform-server';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 import * as express from 'express';
 import { existsSync, readFileSync } from 'fs';
 import * as helmet from 'helmet';
@@ -14,6 +15,7 @@ import * as request from 'request';
 import * as favicon from 'serve-favicon';
 import 'zone.js/dist/zone-node';
 import { cache } from './server/cache';
+import { ga, GoogleAnalytics } from './server/google-analytics';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -25,6 +27,7 @@ const PORT = parseInt(process.env.PORT) || 5000; // In Heroku port is assigned w
 const HOST = '0.0.0.0';
 
 const APP_NAME = 'portfolio';
+const GOOGLE_ANALYTICS_ID = 'GTM-5QWK985';
 const DIST_FOLDER = existsSync('dist') ? 'dist' : '';
 const SERVE_FOLDER = resolve(process.cwd(), DIST_FOLDER, APP_NAME); // Path of the compiled app related to /dist
 
@@ -49,6 +52,9 @@ app.use(
 
 // GZIP all assets
 app.use(compression());
+
+// Parse cookies
+app.use(cookieParser());
 
 // Leave this as require() since this file is built Dynamically from webpack
 const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/portfolio-server/main');
@@ -77,8 +83,8 @@ app.get('/api/*', (req, res) => {
 // Server static files from /browser
 app.get('*.*', express.static(SERVE_FOLDER));
 
-// All regular routes use the Universal engine, cached for 1h
-app.get('*', cache(3600), (req, res) => {
+// All regular routes use the Universal engine, cached for 1h, and using Google Analytics script inlining middleware
+app.get('*', ga({ type: GoogleAnalytics.TagManager, id: GOOGLE_ANALYTICS_ID }), cache(3600), (req, res) => {
    res.render('index', { req });
 });
 
