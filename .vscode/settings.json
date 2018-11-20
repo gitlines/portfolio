@@ -45,10 +45,6 @@
    "tslint.autoFixOnSave": true,
    "auto-rename-tag.activationOnLanguage": ["html", "xml"],
    "auto-close-tag.activationOnLanguage": ["html", "xml"],
-   "jshint.options": {
-      "esversion": 6,
-      "predef": ["-Promise"]
-   },
    "htmlhint.options": {
       "doctype-first": false
    },

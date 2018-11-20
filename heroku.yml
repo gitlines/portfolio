@@ -1,6 +1,5 @@
-setup:
-  config: {}
-
 build:
-  docker:
-    web: Dockerfile
+   docker:
+      web: Dockerfile
+   config:
+      HOST: http://localhost:5000/

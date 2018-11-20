@@ -19,8 +19,12 @@ RUN npm ci
 
 # Copy source files and run tests
 COPY . .
+ARG HOST
+ENV HOST ${HOST:-http://localhost:5000/}
+RUN echo $HOST
 RUN npm run test:ci
 RUN npm run build
+RUN npm run sitemap -- --host=$HOST
 RUN npm run server &>/dev/null; npm run e2e:update-webdriver; npm run e2e
 
 

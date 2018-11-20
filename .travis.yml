@@ -70,10 +70,13 @@ jobs:
       - stage: deploy # Deploy to DEV environment
         env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
         if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
-        script: skip # Default script is npm test, which we want to skip
+        script:
+           - 'sed -i "s|HOST: .*$|HOST: $URL|" heroku.yml' # Replace the URL in heroku.yml to point to correct host
+           - cat heroku.yml
         deploy:
            provider: heroku
            app: $HEROKU_APP_DEV # This deployment is only for PR
+           skip_cleanup: true
            api_key:
               - $HEROKU_TOKEN # Generated running heroku authorizations:create
            on:
@@ -88,10 +91,13 @@ jobs:
       - stage: release # Release to PRD environment
         env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
         if: (NOT type = pull_request) AND branch = master
-        script: skip # Default script is npm test, which we want to skip
+        script:
+           - 'sed -i "s|HOST: .*$|HOST: $URL|" heroku.yml' # Replace the URL in heroku.yml to point to correct host
+           - cat heroku.yml
         deploy:
            - provider: heroku
              app: $HEROKU_APP_PRD # This deployment is the release
+             skip_cleanup: true
              api_key:
                 - $HEROKU_TOKEN # Generated running heroku authorizations:create
            - provider: script

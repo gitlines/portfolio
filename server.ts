@@ -16,6 +16,7 @@ import * as favicon from 'serve-favicon';
 import 'zone.js/dist/zone-node';
 import { cache } from './server/cache';
 import { ga, GoogleAnalytics } from './server/google-analytics';
+import { Server } from 'http';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -89,7 +90,7 @@ app.get('*', ga({ type: GoogleAnalytics.TagManager, id: GOOGLE_ANALYTICS_ID }), 
 });
 
 // Start up the Node server
-app.listen(PORT, HOST, () => {
+export const server: Server = app.listen(PORT, HOST, () => {
    console.log(`App running on http://localhost:${PORT}`);
 
    // Trigger a request to warm-up cache
