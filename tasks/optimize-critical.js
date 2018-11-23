@@ -16,18 +16,18 @@ const processCritical = (baseDir, src) =>
       dimensions: [
          {
             height: 736,
-            width: 414
+            width: 414,
          },
          {
             height: 1200,
-            width: 1920
-         }
+            width: 1920,
+         },
       ],
       penthouse: {
          puppeteer: {
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-         }
-      }
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+         },
+      },
    });
 
 const generateTask = (app) => `optimize:critical:${app.name}:generate`;

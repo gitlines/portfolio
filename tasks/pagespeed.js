@@ -12,12 +12,12 @@ const { generateScoreBadge } = require('../lib/badges');
 const mobileOptions = {
    nokey: true,
    strategy: 'mobile',
-   threshold: 0
+   threshold: 0,
 };
 const desktopOptions = {
    nokey: true,
    strategy: 'desktop',
-   threshold: 0
+   threshold: 0,
 };
 
 // PageSpeed report path
@@ -98,13 +98,13 @@ gulp.task('pagespeed', () => {
                      generateScoreBadge({
                         subject: 'PageSpeed Insights Mobile',
                         score: mobileResult.ruleGroups.SPEED.score,
-                        file: path.join(outputFolder, 'mobile.svg')
+                        file: path.join(outputFolder, 'mobile.svg'),
                      }),
                      generateScoreBadge({
                         subject: 'PageSpeed Insights Desktop',
                         score: desktopResult.ruleGroups.SPEED.score,
-                        file: path.join(outputFolder, 'desktop.svg')
-                     })
+                        file: path.join(outputFolder, 'desktop.svg'),
+                     }),
                   ])
                )
                .then(() => [mobileResult, desktopResult]);

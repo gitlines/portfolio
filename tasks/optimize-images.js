@@ -20,8 +20,8 @@ applications.forEach((app) => {
                   imagemin.gifsicle({ interlaced: true }),
                   imagemin.optipng({ optimizationLevel: 5 }),
                   imagemin.svgo({
-                     plugins: [{ removeViewBox: true }, { cleanupIDs: false }]
-                  })
+                     plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
+                  }),
                ],
                { verbose: true }
             )

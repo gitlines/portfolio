@@ -7,6 +7,7 @@ import * as express from 'express';
 import { existsSync, readFileSync } from 'fs';
 import * as helmet from 'helmet';
 import * as sslRedirect from 'heroku-ssl-redirect';
+import * as http from 'http';
 import * as isHeroku from 'is-heroku';
 import * as morgan from 'morgan';
 import { join, resolve } from 'path';
@@ -14,9 +15,10 @@ import 'reflect-metadata';
 import * as request from 'request';
 import * as favicon from 'serve-favicon';
 import 'zone.js/dist/zone-node';
-import { cache } from './server/cache';
-import { ga, GoogleAnalytics } from './server/google-analytics';
-import { Server } from 'http';
+import { cache, ga, GoogleAnalytics } from './api';
+
+// Allow more connections
+http.globalAgent.maxSockets = 50;
 
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
@@ -47,7 +49,7 @@ if (isHeroku) {
 app.use(
    helmet({
       crossdomain: true,
-      referrerPolicy: { policy: 'same-origin' }
+      referrerPolicy: { policy: 'same-origin' },
    })
 );
 
@@ -67,7 +69,7 @@ app.engine('html', (_, options, callback) => {
    renderModuleFactory(AppServerModuleNgFactory, {
       document: template,
       url: options.req.url,
-      extraProviders: [provideModuleMap(LAZY_MODULE_MAP)]
+      extraProviders: [provideModuleMap(LAZY_MODULE_MAP)],
    }).then((html) => {
       callback(null, html);
    });
@@ -85,14 +87,16 @@ app.get('/api/*', (req, res) => {
 app.get('*.*', express.static(SERVE_FOLDER));
 
 // All regular routes use the Universal engine, cached for 1h, and using Google Analytics script inlining middleware
-app.get('*', ga({ type: GoogleAnalytics.TagManager, id: GOOGLE_ANALYTICS_ID }), cache(3600), (req, res) => {
+const ssrRender = (req, res) => {
    res.render('index', { req });
-});
+};
+
+app.get('*', ga({ type: GoogleAnalytics.TagManager, id: GOOGLE_ANALYTICS_ID }), cache(3600), ssrRender);
 
 // Start up the Node server
-export const server: Server = app.listen(PORT, HOST, () => {
-   console.log(`App running on http://localhost:${PORT}`);
+export const server: http.Server = app.listen(PORT, HOST, () => {
+   console.log(`App running on http://localhost:${PORT}/`);
 
    // Trigger a request to warm-up cache
-   request(`http://localhost:${PORT}`);
+   request(`http://localhost:${PORT}/`);
 });

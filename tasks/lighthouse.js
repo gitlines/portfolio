@@ -19,7 +19,7 @@ const performanceAudits = [
    'first-cpu-idle',
    'interactive',
    'estimated-input-latency',
-   'speed-index'
+   'speed-index',
 ];
 
 // Lighthouse report path
@@ -36,14 +36,14 @@ const getAverageValue = (collection, getValue) =>
 const launchChromeAndRunLighthouse = (url) => {
    return chromeLauncher
       .launch({
-         chromeFlags: ['--headless', '--no-sandbox']
+         chromeFlags: ['--headless', '--no-sandbox'],
       })
       .then((chrome) => {
          console.log('   Chrome launched, starting audit...');
          console.time('   Lighthouse audit finished in');
          const flags = {
             port: chrome.port,
-            output: ['html', 'json']
+            output: ['html', 'json'],
          };
          return lighthouse(url, flags, null).then((results) => {
             console.timeEnd('   Lighthouse audit finished in');
@@ -166,28 +166,28 @@ gulp.task('lighthouse', () => {
                      generateScoreBadge({
                         subject: 'Lighthouse Performance',
                         score: lastResult.lhr.categories.performance.score * 100,
-                        file: path.join(outputFolder, 'performance.svg')
+                        file: path.join(outputFolder, 'performance.svg'),
                      }),
                      generateScoreBadge({
                         subject: 'Lighthouse PWA',
                         score: lastResult.lhr.categories.pwa.score * 100,
-                        file: path.join(outputFolder, 'pwa.svg')
+                        file: path.join(outputFolder, 'pwa.svg'),
                      }),
                      generateScoreBadge({
                         subject: 'Lighthouse Accessibility',
                         score: lastResult.lhr.categories.accessibility.score * 100,
-                        file: path.join(outputFolder, 'accessibility.svg')
+                        file: path.join(outputFolder, 'accessibility.svg'),
                      }),
                      generateScoreBadge({
                         subject: 'Lighthouse Best Practices',
                         score: lastResult.lhr.categories['best-practices'].score * 100,
-                        file: path.join(outputFolder, 'best-practices.svg')
+                        file: path.join(outputFolder, 'best-practices.svg'),
                      }),
                      generateScoreBadge({
                         subject: 'Lighthouse SEO',
                         score: lastResult.lhr.categories.seo.score * 100,
-                        file: path.join(outputFolder, 'seo.svg')
-                     })
+                        file: path.join(outputFolder, 'seo.svg'),
+                     }),
                   ])
                )
                .then(() => lastResult);

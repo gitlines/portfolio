@@ -11,8 +11,8 @@ module.exports = {
          branches: 60,
          functions: 60,
          lines: 60,
-         statements: -20
-      }
+         statements: -20,
+      },
    },
-   coverageDirectory: '<rootDir>/docs/coverage'
+   coverageDirectory: '<rootDir>/docs/coverage',
 };

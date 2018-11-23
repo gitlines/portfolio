@@ -1,4 +1,7 @@
 {
+   "linterOptions": {
+      "exclude": ["src/**/*.ts", "**/node_modules/**"]
+   },
    "extends": ["tslint-config-prettier"],
    "rulesDirectory": ["node_modules/codelyzer", "node_modules/rxjs-tslint"],
    "rules": {

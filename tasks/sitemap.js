@@ -30,7 +30,7 @@ const generate = (url, sitemap) =>
          stripQuerystring: false,
          filepath: sitemap,
          changeFreq: 'weekly',
-         lastMod: true
+         lastMod: true,
       });
 
       generator.on('done', () => {

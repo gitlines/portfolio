@@ -11,21 +11,21 @@ exports.config = {
             '--headless', // Use headless mode
             '--no-sandbox',
             '--disable-gpu',
-            '--window-size=414,736' // Size of an iPhone 6 Plus
-         ]
+            '--window-size=414,736', // Size of an iPhone 6 Plus
+         ],
       },
 
       // Metadata for Cucumber report
       metadata: {
          browser: {
-            name: 'chrome'
+            name: 'chrome',
          },
          device: 'Virtual Machine',
          platform: {
             name: 'ubuntu',
-            version: '14.04'
-         }
-      }
+            version: '14.04',
+         },
+      },
    },
 
    directConnect: true,
@@ -40,7 +40,7 @@ exports.config = {
       format: ['node_modules/cucumber-pretty', 'json:docs/cucumber/results.json'],
       strict: true,
       dryRun: false,
-      compiler: []
+      compiler: [],
    },
 
    plugins: [
@@ -54,14 +54,14 @@ exports.config = {
             removeOriginalJsonReportFile: true,
             removeExistingJsonReportFile: true,
             reportPath: 'docs/cucumber',
-            saveCollectedJSON: true
-         }
-      }
+            saveCollectedJSON: true,
+         },
+      },
    ],
 
    onPrepare() {
       require('ts-node').register({
-         project: 'e2e/tsconfig.e2e.json'
+         project: 'e2e/tsconfig.e2e.json',
       });
-   }
+   },
 };

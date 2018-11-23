@@ -18,7 +18,7 @@ applications.forEach((app) => {
          .src(cssPath, { base: './' })
          .pipe(
             purify([jsPath, htmlPath], {
-               minify: true
+               minify: true,
             })
          )
          .pipe(postcss([cssnano({ preset: 'advanced' })]))
