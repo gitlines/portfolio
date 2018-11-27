@@ -1,3 +1,7 @@
+require('reflect-metadata');
+require('zone.js/dist/zone-node');
+require('dotenv').config(); // Load .env
+
 import { enableProdMode } from '@angular/core';
 import { renderModuleFactory } from '@angular/platform-server';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
@@ -11,10 +15,8 @@ import * as http from 'http';
 import * as isHeroku from 'is-heroku';
 import * as morgan from 'morgan';
 import { join, resolve } from 'path';
-import 'reflect-metadata';
 import * as request from 'request';
 import * as favicon from 'serve-favicon';
-import 'zone.js/dist/zone-node';
 import { cache, ga, GoogleAnalytics } from './api';
 
 // Allow more connections
@@ -30,7 +32,6 @@ const PORT = parseInt(process.env.PORT) || 5000; // In Heroku port is assigned w
 const HOST = '0.0.0.0';
 
 const APP_NAME = 'portfolio';
-const GOOGLE_ANALYTICS_ID = 'GTM-5QWK985';
 const DIST_FOLDER = existsSync('dist') ? 'dist' : '';
 const SERVE_FOLDER = resolve(process.cwd(), DIST_FOLDER, APP_NAME); // Path of the compiled app related to /dist
 
@@ -91,7 +92,7 @@ const ssrRender = (req, res) => {
    res.render('index', { req });
 };
 
-app.get('*', ga({ type: GoogleAnalytics.TagManager, id: GOOGLE_ANALYTICS_ID }), cache(3600), ssrRender);
+app.get('*', ga({ type: GoogleAnalytics.TagManager }), cache(3600), ssrRender);
 
 // Start up the Node server
 export const server: http.Server = app.listen(PORT, HOST, () => {

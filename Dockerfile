@@ -19,12 +19,9 @@ RUN npm ci
 
 # Copy source files and run tests
 COPY . .
-ARG HOST
-ENV HOST ${HOST:-http://localhost:5000/}
-RUN echo $HOST
 RUN npm run test:ci
 RUN npm run build
-RUN npm run sitemap -- --host=$HOST
+RUN npm run sitemap
 RUN npm run server &>/dev/null; npm run e2e:update-webdriver; npm run e2e
 
 
@@ -38,9 +35,9 @@ ENV NODE_ENV=production
 ADD https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64 /usr/local/bin/dumb-init
 RUN chmod +x /usr/local/bin/dumb-init
 
-# Set WORKDIR and copy compiled files
+# Set WORKDIR and copy compiled files and .env
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/dist .
+COPY --from=builder /usr/src/app/dist /usr/src/app/.env* ./
 
 # Run as a non-root user
 USER node

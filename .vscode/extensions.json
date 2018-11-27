@@ -25,10 +25,10 @@
       "felixrieseberg.vsc-travis-ci-status",
       "asvetliakov.snapshot-tools",
       "alexkrechik.cucumberautocomplete",
-      "ritwickdey.liveserver",
       "hdg.live-html-previewer",
       "msjsdiag.debugger-for-chrome",
       "eg2.vscode-npm-script",
+      "mikestead.dotenv",
 
       // Docker and Nginx
       "peterjausovec.vscode-docker",

@@ -22,10 +22,10 @@ export interface GoogleAnalyticsConfig {
    type: GoogleAnalytics;
 
    /**
-    * Tracking id.
+    * Tracking id. Defaults to process.env.GOOGLE_ANALYTICS_ID
     * @type {string}
     */
-   id: string;
+   id?: string;
 
    /**
     * Custom script to append to head.
@@ -72,7 +72,9 @@ const scripts: { [key in GoogleAnalytics]: (id: string) => string } = {
  */
 export function ga({ type, id, script, link, enabled = true }: GoogleAnalyticsConfig): express.RequestHandler {
    function googleAnalytics(req: express.Request, res: express.Response, next: express.NextFunction): void {
-      if (enabled && !skipRequest(req)) {
+      id = id || process.env.GOOGLE_ANALYTICS_ID;
+
+      if (enabled && !skipRequest(req) && id && id.length) {
          // Intercept send method to add script
 
          const send: express.Send = res.send;

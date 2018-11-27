@@ -3,8 +3,10 @@ const path = require('path');
 const gulp = require('gulp');
 const { spawn } = require('child_process');
 const fs = require('fs-extra');
-const { argv } = require('yargs');
+const yargs = require('yargs');
 const SitemapGenerator = require('sitemap-generator');
+
+require('dotenv').config();
 
 const runServer = (server) =>
    new Promise((resolve, reject) => {
@@ -45,7 +47,16 @@ const generate = (url, sitemap) =>
    });
 
 gulp.task('sitemap', async () => {
-   const { server, url, host, outputPath } = argv;
+   const argv = yargs
+      .env()
+      .usage('Usage: gulp sitemap [options]')
+      .describe('server', 'Path to the JS script that will load the server')
+      .describe('localUrl', 'Url of the local server')
+      .describe('url', 'The url of the host of sitemap.xml to be used in it')
+      .describe('outputPath', 'Folder to output sitemap.xml')
+      .demandOption(['server', 'localUrl', 'outputPath']).argv;
+
+   const { server, localUrl, url, outputPath } = argv;
    const sitemap = path.resolve(process.cwd(), outputPath, 'sitemap.xml');
    const robots = path.resolve(process.cwd(), outputPath, 'robots.txt');
    let nodeServer;
@@ -53,19 +64,21 @@ gulp.task('sitemap', async () => {
    try {
       // Run server and generate sitemap.xml
       nodeServer = await runServer(server);
-      await generate(url, sitemap);
+      await generate(localUrl, sitemap);
       nodeServer.kill();
 
-      // Replace localhost by real host
-      let sitemapContent = (await fs.readFile(sitemap)).toString();
-      sitemapContent = sitemapContent.split(url).join(host);
-      await fs.writeFile(sitemap, sitemapContent);
+      // Replace localhost by real host if provided
+      if (url) {
+         let sitemapContent = (await fs.readFile(sitemap)).toString();
+         sitemapContent = sitemapContent.split(localUrl).join(url);
+         await fs.writeFile(sitemap, sitemapContent);
+      }
 
       // Update robots.txt if needed
       if (await fs.pathExists(robots)) {
          let robotsContent = (await fs.readFile(robots)).toString();
          if (robotsContent.indexOf('Sitemap') === -1) {
-            robotsContent = `${robotsContent}\nSitemap: ${host}sitemap.xml`;
+            robotsContent = `${robotsContent}\nSitemap: ${url}sitemap.xml`;
             await fs.writeFile(robots, robotsContent);
          }
       }
