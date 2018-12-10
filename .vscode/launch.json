@@ -8,6 +8,15 @@
          "args": ["--runInBand"],
          "console": "integratedTerminal",
          "internalConsoleOptions": "neverOpen"
+      },
+      {
+         "type": "node",
+         "request": "launch",
+         "name": "Protractor e2e",
+         "program": "${workspaceRoot}/node_modules/protractor/bin/protractor",
+         "args": ["${workspaceRoot}/e2e/protractor.conf.js", "--baseUrl=http://localhost:5100"],
+         "console": "integratedTerminal",
+         "internalConsoleOptions": "neverOpen"
       }
    ]
 }

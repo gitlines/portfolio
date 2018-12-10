@@ -1,5 +1,5 @@
 ### Build stage ###
-FROM node:8.10 as builder
+FROM node:8.14.0 as builder
 
 LABEL authors="Samuel Fernandez"
 
@@ -9,8 +9,11 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get -qq update \
    && apt-get -qq install google-chrome-stable -y --no-install-recommends \
    && apt-get -qq clean \
-   && rm -rf /var/lib/apt/lists/* \
-   && npm install -g npm@latest
+   && rm -rf /var/lib/apt/lists/*
+
+# Installation downloading deb package to workaround issue https://github.com/angular/protractor/issues/5077
+RUN wget -O google-chrome-stable.deb https://www.slimjet.com/chrome/download-chrome.php?file=files/69.0.3497.92/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable.deb
 
 # Set WORKDIR and install dependencies
 WORKDIR /usr/src/app
@@ -21,12 +24,11 @@ RUN npm ci
 COPY . .
 RUN npm run test:ci
 RUN npm run build
-RUN npm run sitemap
-RUN npm run server &>/dev/null; npm run e2e:update-webdriver; npm run e2e
+RUN bash -c "npm run server &>/dev/null" & npm run e2e:update-webdriver; npm run sitemap; npm run e2e
 
 
 ### Server stage ###
-FROM node:8.10-alpine as server
+FROM node:8.14.0-alpine as server
 
 # Set node in production mode
 ENV NODE_ENV=production

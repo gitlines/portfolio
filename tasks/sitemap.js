@@ -54,7 +54,7 @@ gulp.task('sitemap', async () => {
       .describe('localUrl', 'Url of the local server')
       .describe('url', 'The url of the host of sitemap.xml to be used in it')
       .describe('outputPath', 'Folder to output sitemap.xml')
-      .demandOption(['server', 'localUrl', 'outputPath']).argv;
+      .demandOption(['localUrl', 'outputPath']).argv;
 
    const { server, localUrl, url, outputPath } = argv;
    const sitemap = path.resolve(process.cwd(), outputPath, 'sitemap.xml');
@@ -62,10 +62,18 @@ gulp.task('sitemap', async () => {
    let nodeServer;
 
    try {
-      // Run server and generate sitemap.xml
-      nodeServer = await runServer(server);
+      // Run server
+      if (server) {
+         nodeServer = await runServer(server);
+      }
+
+      // Generate sitemap.xml
       await generate(localUrl, sitemap);
-      nodeServer.kill();
+
+      // Stop the server
+      if (nodeServer) {
+         nodeServer.kill();
+      }
 
       // Replace localhost by real host if provided
       if (url) {

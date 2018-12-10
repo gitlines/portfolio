@@ -1,0 +1,12 @@
+{
+   "compilerOptions": {
+      "baseUrl": "./",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "sourceMap": false,
+      "target": "es6",
+      "lib": ["esnext"]
+   },
+   "include": ["**/*.ts"],
+   "exclude": ["node_modules"]
+}

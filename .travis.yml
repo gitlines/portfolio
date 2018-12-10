@@ -17,16 +17,20 @@ addons:
 
 before_install:
    - export DISPLAY=:99.0 # Configuration for e2e tests
+   - wget -O google-chrome-stable.deb https://www.slimjet.com/chrome/download-chrome.php?file=files/69.0.3497.92/google-chrome-stable_current_amd64.deb
+   - sudo dpkg -i google-chrome*.deb # Installation downloading deb package to workaround issue https://github.com/angular/protractor/issues/5077
    - npm install -g npm@latest # Update npm
    - npm install -g greenkeeper-lockfile # Connection with Greenkeeper
-install:
-   - if [[ $TRAVIS_BRANCH =~ greenkeeper.* ]] || [[ $TRAVIS_PULL_REQUEST_BRANCH =~ greenkeeper.* ]]; then npm install; else npm ci; fi
+   - echo $TRAVIS_BRANCH
+   - echo $TRAVIS_PULL_REQUEST_BRANCH
+install: npm install
 before_script: greenkeeper-lockfile-update # Connection with Greenkeeper
 after_script: greenkeeper-lockfile-upload # Connection with Greenkeeper
 
 cache:
    directories:
-      - - '$HOME/.npm'
+      - '$HOME/.npm'
+      - node_modules
 
 stages:
    - test

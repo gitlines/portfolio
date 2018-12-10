@@ -126,7 +126,7 @@ function profilingMiddleware() {
          setTimeout(() => {
             profiles.emit('connection', { req, lapse: process.hrtime(startTransmision) });
             profiles.emit('route', { req, lapse: process.hrtime(startRequest) });
-         });
+         }, 0);
       });
       next();
    };
