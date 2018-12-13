@@ -59,7 +59,7 @@ jobs:
         script:
            - npm run build
            - npm run server &>/dev/null &
-           - npm run e2e:update-webdriver
+           - npm run e2e:update-webdriver -- --versions.chrome 2.44
            - xvfb-run -a npm run e2e
            - npx apollo service:check --endpoint=http://localhost:5000/graphql
 
@@ -69,7 +69,7 @@ jobs:
            - docker build -t $DOCKER_APP .
            - docker run -d -p 5000:5000 -e PORT=5000 $DOCKER_APP
            - docker ps -a
-           - npm run e2e:update-webdriver
+           - npm run e2e:update-webdriver -- --versions.chrome 2.44
            - xvfb-run -a npm run e2e
 
       - stage: deploy # Deploy to DEV environment
@@ -87,7 +87,7 @@ jobs:
               all_branches: true
         after_deploy:
            - curl $HOST > /dev/null # Start Heroku server by accessing it
-           - npm run e2e:update-webdriver
+           - npm run e2e:update-webdriver -- --versions.chrome 2.44
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse -- --github || travis_terminate 1 # Force build failure if audit fails
@@ -109,7 +109,7 @@ jobs:
                 - npx semantic-release
         after_deploy:
            - curl $HOST > /dev/null # Start Heroku server by accessing it
-           - npm run e2e:update-webdriver
+           - npm run e2e:update-webdriver -- --versions.chrome 2.44
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse || travis_terminate 1 # Force build failure if audit fails
@@ -121,7 +121,7 @@ jobs:
         script:
            - npm run test:ci # Generate report from unit tests at /docs/coverage
            - curl $HOST > /dev/null # Start Heroku server by accessing it
-           - npm run e2e:update-webdriver
+           - npm run e2e:update-webdriver -- --versions.chrome 2.44
            - xvfb-run -a npm run e2e:remote # Generate report from e2e tests at /docs/cucumber
            - npm run compodoc # Generate report from documentation at /docs/compodoc
            - npm run pagespeed # Generate report from pagespeed at /docs/pagespeed

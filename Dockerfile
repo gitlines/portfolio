@@ -25,7 +25,8 @@ RUN npm ci
 COPY . .
 RUN npm run test:ci
 RUN npm run build
-RUN npm run server &>/dev/null & npm run e2e:update-webdriver; npm run sitemap; npm run e2e
+RUN npm run e2e:update-webdriver -- --versions.chrome 2.44
+RUN npm run server & npm run sitemap; npm run e2e
 
 
 ### Server stage ###
