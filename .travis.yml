@@ -91,7 +91,6 @@ jobs:
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse -- --github || travis_terminate 1 # Force build failure if audit fails
-           - npx apollo service:push --endpoint="${HOST}graphql"
 
       - stage: release # Release to PRD environment
         env: HOST=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
@@ -114,6 +113,7 @@ jobs:
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse || travis_terminate 1 # Force build failure if audit fails
+           - npx apollo service:push --endpoint="${HOST}graphql"
 
       - stage: documentation # Generate documentation after release
         env: HOST=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
