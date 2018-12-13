@@ -44,6 +44,7 @@
                      "vendorChunk": false,
                      "buildOptimizer": true,
                      "serviceWorker": true,
+                     "statsJson": true,
                      "budgets": [
                         {
                            "type": "bundle",

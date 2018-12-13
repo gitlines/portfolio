@@ -17,5 +17,16 @@
             "urls": ["https://fonts.googleapis.com/**"]
          }
       }
+   ],
+   "dataGroups": [
+      {
+         "name": "api",
+         "urls": ["/graphql"],
+         "cacheConfig": {
+            "maxSize": 0,
+            "maxAge": "0u",
+            "strategy": "freshness"
+         }
+      }
    ]
 }

@@ -18,7 +18,7 @@ gulp.task('dotenv', async () => {
          console.log(`Adding variable ${key} to .env`);
       } else {
          throw new Error(
-            `The following variable was defined in ${exampleFilename} but is not present in the environment: ${key}` +
+            `Variable ${key} was defined in ${exampleFilename} but is not present in the environment.` +
                `\nMake sure to add it to the environment or pass it as a parameter with --VAR=VALUE`
          );
       }

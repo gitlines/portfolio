@@ -12,6 +12,7 @@
       "shinnn.stylelint",
       "eg2.tslint",
       "DavidAnson.vscode-markdownlint",
+      "VisualStudioExptTeam.vscodeintellicode",
 
       // Utils
       "formulahendry.auto-rename-tag",

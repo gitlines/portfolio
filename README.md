@@ -36,8 +36,29 @@
 
 Check project's [Wiki](https://github.com/samuelfernandez/portfolio/wiki) to see how this project has been built.
 
+## Development
+
+Run the client:
+
+```shell
+npm run start
+```
+
+Compile the server in watch mode:
+
+```shell
+npm run build:server:watch
+```
+
+Run the server in watch mode:
+
+```shell
+npm run server:watch
+```
+
 ## Administration links
 
 -  [Google Analytics](https://analytics.google.com/analytics/web/#/)
 -  [Google Tag Manager](https://tagmanager.google.com)
 -  [Google Search Console](https://search.google.com/search-console/welcome)
+-  [Apollo Engine](https://engine.apollographql.com/service/samuelfernandez/explorer)

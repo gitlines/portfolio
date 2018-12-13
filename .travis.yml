@@ -17,7 +17,7 @@ addons:
 
 before_install:
    - export DISPLAY=:99.0 # Configuration for e2e tests
-   - wget -O google-chrome-stable.deb https://www.slimjet.com/chrome/download-chrome.php?file=files/69.0.3497.92/google-chrome-stable_current_amd64.deb
+   - wget -O google-chrome-stable.deb http://www.slimjetbrowser.com/chrome/files/70.0.3538.77/google-chrome-stable_current_amd64.deb
    - sudo dpkg -i google-chrome*.deb # Installation downloading deb package to workaround issue https://github.com/angular/protractor/issues/5077
    - npm install -g npm@latest # Update npm
    - npm install -g greenkeeper-lockfile # Connection with Greenkeeper
@@ -61,6 +61,7 @@ jobs:
            - npm run server &>/dev/null &
            - npm run e2e:update-webdriver
            - xvfb-run -a npm run e2e
+           - npx apollo service:check --endpoint=http://localhost:5000/graphql
 
       - stage: test # Docker build
         env: TEST=Docker
@@ -72,7 +73,7 @@ jobs:
            - xvfb-run -a npm run e2e
 
       - stage: deploy # Deploy to DEV environment
-        env: URL=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
+        env: HOST=https://samuel-fernandez-dev.herokuapp.com/ # Here we need to make it explicit
         if: type = push AND (NOT branch = master) # Deploy only run for PUSH, but avoid master
         script:
            - npm run dotenv # Persist env variables in .env file so that it is included in Docker container
@@ -85,14 +86,15 @@ jobs:
            on:
               all_branches: true
         after_deploy:
-           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - curl $HOST > /dev/null # Start Heroku server by accessing it
            - npm run e2e:update-webdriver
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed -- --github || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse -- --github || travis_terminate 1 # Force build failure if audit fails
+           - npx apollo service:push --endpoint="${HOST}graphql"
 
       - stage: release # Release to PRD environment
-        env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+        env: HOST=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
         if: (NOT type = pull_request) AND branch = master
         script:
            - npm run dotenv # Persist env variables in .env file so that it is included in Docker container
@@ -107,18 +109,18 @@ jobs:
              script:
                 - npx semantic-release
         after_deploy:
-           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - curl $HOST > /dev/null # Start Heroku server by accessing it
            - npm run e2e:update-webdriver
            - xvfb-run -a npm run e2e:remote || travis_terminate 1 # Force build failure if tests fail
            - npm run pagespeed || travis_terminate 1 # Force build failure if audit fails
            - npm run lighthouse || travis_terminate 1 # Force build failure if audit fails
 
       - stage: documentation # Generate documentation after release
-        env: URL=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
+        env: HOST=https://samuel-fernandez.herokuapp.com/ # Here we need to make it explicit
         if: (NOT type = pull_request) AND branch = master # Only for for master build
         script:
            - npm run test:ci # Generate report from unit tests at /docs/coverage
-           - curl $URL > /dev/null # Start Heroku server by accessing it
+           - curl $HOST > /dev/null # Start Heroku server by accessing it
            - npm run e2e:update-webdriver
            - xvfb-run -a npm run e2e:remote # Generate report from e2e tests at /docs/cucumber
            - npm run compodoc # Generate report from documentation at /docs/compodoc

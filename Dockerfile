@@ -12,8 +12,9 @@ RUN apt-get -qq update \
    && rm -rf /var/lib/apt/lists/*
 
 # Installation downloading deb package to workaround issue https://github.com/angular/protractor/issues/5077
-RUN wget -O google-chrome-stable.deb https://www.slimjet.com/chrome/download-chrome.php?file=files/69.0.3497.92/google-chrome-stable_current_amd64.deb
+RUN wget -O google-chrome-stable.deb http://www.slimjetbrowser.com/chrome/files/70.0.3538.77/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable.deb
+
 
 # Set WORKDIR and install dependencies
 WORKDIR /usr/src/app
@@ -24,7 +25,7 @@ RUN npm ci
 COPY . .
 RUN npm run test:ci
 RUN npm run build
-RUN bash -c "npm run server &>/dev/null" & npm run e2e:update-webdriver; npm run sitemap; npm run e2e
+RUN npm run server &>/dev/null & npm run e2e:update-webdriver; npm run sitemap; npm run e2e
 
 
 ### Server stage ###
@@ -39,7 +40,8 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 # Set WORKDIR and copy compiled files and .env
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app/dist /usr/src/app/.env* ./
+COPY --from=builder /usr/src/app/dist /usr/src/app/.env* /usr/src/app/package.json /usr/src/app/package-lock.json ./
+RUN npm ci --only=production
 
 # Run as a non-root user
 USER node

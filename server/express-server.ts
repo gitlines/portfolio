@@ -1,6 +1,8 @@
 console.clear();
 require('dotenv').config(); // Load .env
 
+import { SubscriptionServerOptions } from 'apollo-server-core';
+import { ApolloServer, Config } from 'apollo-server-express';
 import chalk from 'chalk';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
@@ -14,11 +16,13 @@ import * as morgan from 'morgan';
 import { join } from 'path';
 import * as request from 'request';
 import * as favicon from 'serve-favicon';
+import { connectMongo, resolvers, typeDefs } from './db';
 import { cache, CacheConfig, CacheControl, ga, GoogleAnalytics, GoogleAnalyticsConfig } from './middleware';
 
 class Server {
    static PORT = parseInt(process.env.PORT) || 5000; // In Heroku port is assigned with an env variable
    static HOST = '0.0.0.0';
+   static LOCALHOST = `http://localhost:${Server.PORT}`;
 
    static HELMET_OPTIONS: helmet.IHelmetConfiguration = {
       permittedCrossDomainPolicies: true,
@@ -30,32 +34,39 @@ class Server {
       { path: '/users', type: CacheControl.NO_CACHE },
       { path: '*', type: CacheControl.PUBLIC, duration: 3600 },
    ];
+   static GRAPHQL_CONFIG: Partial<Config> = {
+      introspection: true,
+      playground: true,
+      engine: {
+         apiKey: process.env.ENGINE_API_KEY,
+      },
+      subscriptions: {
+         keepAlive: 10,
+      },
+   };
+   static GRAPHQL_PATH = '/graphql';
 
    private app: express.Application;
+   private httpServer: http.Server;
+   private graphqlServer: ApolloServer;
    private BROWSER_FOLDER: string;
    private htmlEngine: Function;
    private ssrRender: express.RequestHandler;
 
    constructor() {
       this.app = express();
-      // Allow more connections
-      http.globalAgent.maxSockets = 100;
    }
 
    private loadUniversal() {
-      try {
-         // Compiled Angular Universal module at run time
-         const { BROWSER_FOLDER, htmlEngine, ssrRender } = require('./universal');
-         this.BROWSER_FOLDER = BROWSER_FOLDER;
-         this.htmlEngine = htmlEngine;
-         this.ssrRender = ssrRender;
-      } catch (e) {}
+      // Compiled Angular Universal module at run time
+      const { BROWSER_FOLDER, htmlEngine, ssrRender } = require('./universal');
+      this.BROWSER_FOLDER = BROWSER_FOLDER;
+      this.htmlEngine = htmlEngine;
+      this.ssrRender = ssrRender;
    }
 
    private favicon() {
-      if (this.BROWSER_FOLDER) {
-         this.app.use(favicon(join(this.BROWSER_FOLDER, 'favicon.ico')));
-      }
+      this.app.use(favicon(join(this.BROWSER_FOLDER, 'favicon.ico')));
    }
 
    private log() {
@@ -73,9 +84,13 @@ class Server {
    }
 
    private cors() {
+      // Configure whitelist differently depending if in production or development
+      let whitelist: string[] = process.env.NODE_ENV === 'production' ? [process.env.HOST] : Server.CORS_WHITELIST;
+      whitelist = whitelist.filter((host) => !!host).map((host) => host.replace(/\/$/, '')); // Remove trailing "/"
+
       const corsOptions: cors.CorsOptions = {
          origin: (origin, callback) => {
-            if (Server.CORS_WHITELIST.indexOf(origin) !== -1 || !origin) {
+            if (whitelist.indexOf(origin) !== -1 || !origin) {
                callback(null, true);
             } else {
                callback(new Error(`Origin ${origin} not allowed by CORS`));
@@ -94,37 +109,78 @@ class Server {
    }
 
    private static() {
-      if (this.BROWSER_FOLDER) {
-         this.app.get('*.*', express.static(this.BROWSER_FOLDER));
+      this.app.get('*.*', express.static(this.BROWSER_FOLDER));
+   }
+
+   private async graphql() {
+      try {
+         await connectMongo(); // Connect to the MongoDB
+
+         this.graphqlServer = new ApolloServer({
+            ...Server.GRAPHQL_CONFIG,
+            typeDefs,
+            resolvers,
+            subscriptions: {
+               ...(<Partial<SubscriptionServerOptions>>Server.GRAPHQL_CONFIG.subscriptions),
+               onConnect: (_, webSocket) => {
+                  console.log(`WebSockets client connected from ${webSocket._socket.remoteAddress}`);
+               },
+               onDisconnect: (webSocket) => {
+                  console.log(`WebSockets client disconnected from ${webSocket._socket.remoteAddress}`);
+               },
+            },
+         });
+         this.graphqlServer.applyMiddleware({ app: this.app, path: Server.GRAPHQL_PATH }); // Connect GraphQl
+      } catch (e) {
+         // If it fails return always 404
+         this.app.use(Server.GRAPHQL_PATH, (req, res) => res.status(404).end());
+         this.graphqlServer = undefined;
       }
    }
 
    private universal() {
-      if (this.BROWSER_FOLDER) {
-         this.app.engine('html', this.htmlEngine);
-         this.app.set('view engine', 'html');
-         this.app.set('views', this.BROWSER_FOLDER);
-         const googleAnalytics: express.RequestHandler = ga(Server.GOOGLE_ANALYTICS_CONFIG);
-         const cacheHandler: express.RequestHandler = cache(Server.CACHE_CONFIG);
-         this.app.get('*', googleAnalytics, cacheHandler, this.ssrRender);
-      } else {
-         this.app.use('*', (req, res) => res.status(404).end());
+      this.app.engine('html', this.htmlEngine);
+      this.app.set('view engine', 'html');
+      this.app.set('views', this.BROWSER_FOLDER);
+      const googleAnalytics: express.RequestHandler = ga(Server.GOOGLE_ANALYTICS_CONFIG);
+      const cacheHandler: express.RequestHandler = cache(Server.CACHE_CONFIG);
+      this.app.get('*', googleAnalytics, cacheHandler, this.ssrRender);
+   }
+
+   private createServer() {
+      this.httpServer = http.createServer(this.app);
+   }
+
+   private graphqlSubscriptions() {
+      if (this.graphqlServer) {
+         this.graphqlServer.installSubscriptionHandlers(this.httpServer);
       }
    }
 
-   private serve() {
+   private startServer() {
       return new Promise((resolve) => {
-         this.app
+         this.httpServer
             .listen(Server.PORT, Server.HOST, () => {
-               console.log(chalk.green(`App running on http://localhost:${Server.PORT}/`));
+               console.log(chalk.green(`App running on ${Server.LOCALHOST}`));
+
+               if (this.graphqlServer) {
+                  const graphqlPath: string = this.graphqlServer.graphqlPath;
+                  const subscriptionsPath: string = this.graphqlServer.subscriptionsPath;
+                  console.log(chalk.green(`GraphQL running on ${Server.LOCALHOST}${graphqlPath}`));
+                  console.log(chalk.green(`Subscriptions ready at ws://localhost:${Server.PORT}${subscriptionsPath}`));
+               }
+
                resolve();
             })
-            .on('error', () => process.exit(1));
+            .on('error', (err) => {
+               console.error(chalk.red(err.message));
+               process.exit(1);
+            });
       });
    }
 
    private initialRequest() {
-      request(`http://localhost:${Server.PORT}/`);
+      request(Server.LOCALHOST);
    }
 
    async start() {
@@ -137,11 +193,17 @@ class Server {
       this.gzip();
       this.cookieParser();
       this.static();
+      await this.graphql();
       this.universal();
-      await this.serve();
+      this.createServer();
+      this.graphqlSubscriptions();
+      await this.startServer();
       this.initialRequest();
    }
 }
 
 const server = new Server();
-server.start().catch(() => process.exit(1));
+server.start().catch((err) => {
+   console.error(chalk.red(err));
+   process.exit(1);
+});
