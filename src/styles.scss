@@ -1,5 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import './scss/main';
+
 body {
-   background-color: #1976d2;
+   background-color: color(blue);
    color: #fff;
+   font-family: 'Montserrat', sans-serif;
+   box-sizing: content-box;
+}
+
+ul {
+   list-style-type: none;
 }

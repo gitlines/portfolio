@@ -1,0 +1,23 @@
+$easings: (
+   standard: cubic-bezier(0.4, 0, 0.2, 1),
+   incoming: cubic-bezier(0, 0, 0.2, 1),
+   exiting: cubic-bezier(0.4, 0, 1, 1),
+);
+
+$durations: (
+   fast: 75ms,
+   normal: 240ms,
+   slow: 300ms,
+);
+
+@function easing($name) {
+   @return map-get($map: $easings, $key: $name);
+}
+
+@function duration($name) {
+   @return map-get($map: $durations, $key: $name);
+}
+
+@function transition($property, $duration: normal, $easing: standard) {
+   @return $property duration($duration) easing($easing);
+}

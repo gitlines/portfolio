@@ -18,9 +18,9 @@ describe('ShellComponent', () => {
             declarations: [ShellComponent],
             providers: [
                { provide: Angulartics2GoogleGlobalSiteTag, useClass: MockAngulartics },
-               { provide: PLATFORM_ID, useValue: 'browser' }
+               { provide: PLATFORM_ID, useValue: 'browser' },
             ],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
          }).compileComponents();
       }));
 
@@ -40,7 +40,7 @@ describe('ShellComponent', () => {
       }));
 
       it('should render title in a h1 tag', async(() => {
-         expect(element.querySelector('h1').textContent).toContain('Welcome to Portfolio!');
+         expect(element.querySelector('h1').textContent).toContain('Portfolio');
       }));
 
       it('should match the snapshot', async(() => {
@@ -54,9 +54,9 @@ describe('ShellComponent', () => {
             declarations: [ShellComponent],
             providers: [
                { provide: Angulartics2GoogleGlobalSiteTag, useClass: MockAngulartics },
-               { provide: PLATFORM_ID, useValue: 'server' }
+               { provide: PLATFORM_ID, useValue: 'server' },
             ],
-            schemas: [NO_ERRORS_SCHEMA]
+            schemas: [NO_ERRORS_SCHEMA],
          }).compileComponents();
       }));
 

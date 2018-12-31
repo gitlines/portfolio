@@ -1,0 +1,17 @@
+/**
+ * Palette generated at: https://coolors.co/1e5670-de5f5a-e5bb1b-96f2a0-5f7a86
+ * Inspiration: https://visme.co/blog/website-color-schemes/
+ */
+
+$palette: (
+   white: #fff,
+   yellow: #fcd63f,
+   pink: #de5f5a,
+   blue: #1e5670,
+   green: #8ce580,
+   gray: #5f7a86,
+);
+
+@function color($name) {
+   @return map-get($map: $palette, $key: $name);
+}

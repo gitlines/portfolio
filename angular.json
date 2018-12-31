@@ -24,6 +24,9 @@
                   "tsConfig": "src/tsconfig.app.json",
                   "assets": ["src/favicon.ico", "src/manifest.json", "src/robots.txt", "src/assets"],
                   "styles": ["node_modules/normalize.css/normalize.css", "src/styles.scss"],
+                  "stylePreprocessorOptions": {
+                     "includePaths": ["src/scss"]
+                  },
                   "scripts": []
                },
                "configurations": {
@@ -97,7 +100,10 @@
                "options": {
                   "outputPath": "dist/server",
                   "main": "src/main.server.ts",
-                  "tsConfig": "src/tsconfig.universal.json"
+                  "tsConfig": "src/tsconfig.universal.json",
+                  "stylePreprocessorOptions": {
+                     "includePaths": ["src/scss"]
+                  }
                },
                "configurations": {
                   "production": {
