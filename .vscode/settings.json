@@ -9,7 +9,7 @@
    "workbench.iconTheme": "material-icon-theme",
    "workbench.colorTheme": "Monokai",
    "diffEditor.ignoreTrimWhitespace": false,
-   "files.autoSave": "onFocusChange",
+   "files.autoSave": "onWindowChange",
    "files.eol": "\n",
    "git.enableSmartCommit": true,
    "git.confirmSync": false,
@@ -51,6 +51,9 @@
    "cucumberautocomplete.steps": ["e2e/steps/*.steps.ts"],
    "cucumberautocomplete.syncfeatures": "e2e/features/*.feature",
    "cucumberautocomplete.strictGherkinCompletion": true,
+   "testExplorer.codeLens": true,
+   "testExplorer.errorDecoration": true,
+   "testExplorer.gutterDecoration": true,
 
    // Specify paths/files to ignore.
    "cSpell.ignorePaths": [

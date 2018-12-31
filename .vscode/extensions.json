@@ -30,6 +30,7 @@
       "msjsdiag.debugger-for-chrome",
       "eg2.vscode-npm-script",
       "mikestead.dotenv",
+      "apollographql.vscode-apollo",
 
       // Docker and Nginx
       "peterjausovec.vscode-docker",
@@ -38,6 +39,11 @@
       "mikael.angular-beastcode",
       "angular.ng-template",
       "natewallace.angular2-inline",
-      "cyrilletuzi.angular-schematics"
+      "cyrilletuzi.angular-schematics",
+
+      // Jest
+      "orta.vscode-jest",
+      "hbenl.vscode-test-explorer",
+      "rtbenfield.vscode-jest-test-adapter"
    ]
 }

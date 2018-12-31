@@ -17,6 +17,14 @@
          "args": ["${workspaceRoot}/e2e/protractor.conf.js", "--baseUrl=http://localhost:5100"],
          "console": "integratedTerminal",
          "internalConsoleOptions": "neverOpen"
+      },
+      {
+         "type": "node",
+         "request": "attach",
+         "name": "Server",
+         "processId": "${command:PickProcess}",
+         "restart": true,
+         "protocol": "inspector"
       }
    ]
 }

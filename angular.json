@@ -49,8 +49,8 @@
                         {
                            "type": "bundle",
                            "name": "main",
-                           "maximumWarning": "300kb",
-                           "maximumError": "500kb"
+                           "maximumWarning": "500kb",
+                           "maximumError": "600kb"
                         },
                         {
                            "type": "bundle",
@@ -60,8 +60,8 @@
                         },
                         {
                            "type": "all",
-                           "maximumWarning": "500kb",
-                           "maximumError": "800kb"
+                           "maximumWarning": "700kb",
+                           "maximumError": "1000kb"
                         }
                      ]
                   }
@@ -97,7 +97,7 @@
                "options": {
                   "outputPath": "dist/server",
                   "main": "src/main.server.ts",
-                  "tsConfig": "src/tsconfig.server.json"
+                  "tsConfig": "src/tsconfig.universal.json"
                },
                "configurations": {
                   "production": {

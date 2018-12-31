@@ -23,6 +23,10 @@ RUN npm ci
 
 # Copy source files and run tests
 COPY . .
+
+# Set node in production mode
+ENV NODE_ENV=production
+
 RUN npm run test:ci
 RUN npm run build
 RUN npm run e2e:update-webdriver -- --versions.chrome 2.44

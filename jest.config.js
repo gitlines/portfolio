@@ -15,4 +15,8 @@ module.exports = {
       },
    },
    coverageDirectory: '<rootDir>/docs/coverage',
+   moduleNameMapper: {
+      '@lib/(.*)': '<rootDir>/src/lib/$1',
+      '@env/(.*)': '<rootDir>/src/environments/$1',
+   },
 };

@@ -8,7 +8,8 @@ import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
 @Component({
    selector: 'app-shell',
    templateUrl: './shell.component.html',
-   changeDetection: ChangeDetectionStrategy.OnPush
+   styleUrls: ['./shell.component.scss'],
+   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
    /**

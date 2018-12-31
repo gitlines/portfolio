@@ -8,13 +8,17 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
    entry: {
-      server: path.resolve(__dirname, './express-server.ts'),
+      server: path.resolve(__dirname, './server/express-server.ts'),
    },
    resolve: {
       extensions: ['.js', '.ts'],
+      alias: {
+         '@lib/graphql': path.resolve(__dirname, './lib/graphql/index.ts'),
+      },
    },
    target: 'node',
-   mode: 'production', // Resolves process.env.NODE_ENV to production when building
+   // Resolves process.env.NODE_ENV to production when building
+   mode: process.env.NODE_ENV === 'production' ? 'production' : 'none',
    output: {
       path: path.join(process.cwd(), 'dist'),
       filename: '[name].js',
@@ -26,7 +30,7 @@ module.exports = {
             test: /\.ts$/,
             loader: 'ts-loader',
             options: {
-               configFile: path.resolve(__dirname, './tsconfig.json'),
+               configFile: path.resolve(__dirname, './tsconfig.server.json'),
             },
          },
       ],

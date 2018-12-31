@@ -54,6 +54,7 @@ class Server {
    private ssrRender: express.RequestHandler;
 
    constructor() {
+      console.log(`Environment set to ${process.env.NODE_ENV}`);
       this.app = express();
    }
 
@@ -61,7 +62,7 @@ class Server {
       // Compiled Angular Universal module at run time
       const { BROWSER_FOLDER, htmlEngine, ssrRender } = require('./universal');
       this.BROWSER_FOLDER = BROWSER_FOLDER;
-      this.htmlEngine = htmlEngine;
+      this.htmlEngine = htmlEngine(Server.PORT);
       this.ssrRender = ssrRender;
    }
 
@@ -93,7 +94,7 @@ class Server {
             if (whitelist.indexOf(origin) !== -1 || !origin) {
                callback(null, true);
             } else {
-               callback(new Error(`Origin ${origin} not allowed by CORS`));
+               callback(new Error(`Origin ${origin} not allowed by CORS, allowed origins ${whitelist.join(', ')}`));
             }
          },
       };
@@ -123,10 +124,10 @@ class Server {
             subscriptions: {
                ...(<Partial<SubscriptionServerOptions>>Server.GRAPHQL_CONFIG.subscriptions),
                onConnect: (_, webSocket) => {
-                  console.log(`WebSockets client connected from ${webSocket._socket.remoteAddress}`);
+                  console.log(chalk.yellow(`WebSockets client connected from ${webSocket._socket.remoteAddress}`));
                },
                onDisconnect: (webSocket) => {
-                  console.log(`WebSockets client disconnected from ${webSocket._socket.remoteAddress}`);
+                  console.log(chalk.red(`WebSockets client disconnected from ${webSocket._socket.remoteAddress}`));
                },
             },
          });

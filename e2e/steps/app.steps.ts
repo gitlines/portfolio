@@ -4,9 +4,7 @@ import { AppPage } from './app.po';
 
 let page: AppPage;
 
-Before(() => {
-   page = new AppPage();
-});
+Before(() => (page = new AppPage()));
 
 Given('I navigate to this site', () => page.navigateTo());
 

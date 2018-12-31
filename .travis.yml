@@ -24,7 +24,9 @@ before_install:
    - echo $TRAVIS_BRANCH
    - echo $TRAVIS_PULL_REQUEST_BRANCH
 install: npm install
-before_script: greenkeeper-lockfile-update # Connection with Greenkeeper
+before_script:
+   - greenkeeper-lockfile-update # Connection with Greenkeeper
+   - export NODE_ENV=production # So that webpack builds with production setting
 after_script: greenkeeper-lockfile-upload # Connection with Greenkeeper
 
 cache:
