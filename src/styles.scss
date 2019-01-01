@@ -1,10 +1,25 @@
 @import './scss/main';
 
-body {
-   background-color: color(blue);
-   color: #fff;
-   font-family: 'Montserrat', sans-serif;
+*,
+::after,
+::before {
    box-sizing: content-box;
+}
+
+body {
+   @include theme(dark);
+
+   font-family: 'Montserrat', 'Source Sans', 'Helvetica Neue', Helvetica, 'Arial Black', Arial, sans-serif;
+   font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-weight: 600;
 }
 
 ul {

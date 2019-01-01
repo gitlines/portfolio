@@ -19,28 +19,28 @@ a:active {
 }
 
 .nav {
+   @include theme(dark);
+
    position: fixed;
    display: flex;
    align-items: center;
    top: 0;
    left: 0;
    right: 0;
-   margin: 1rem;
-   background: color(blue);
+   padding: 1rem;
 }
 
 .nav__header {
    display: block;
    flex: 1 0 auto;
    margin: 0.25rem 0;
-   font-size: 2em;
 
    & a {
       transition: transition(all);
 
       &:hover,
       &:focus {
-         color: darken(color(white), 10%);
+         color: get-color(white);
       }
    }
 }
@@ -58,16 +58,15 @@ a:active {
    border-radius: 0.25rem;
    font-size: 1.6em;
    font-weight: 300;
-   background-color: color(blue);
    transition: transition(all);
 
    &:hover,
    &:focus {
-      color: darken(color(white), 10%);
+      color: get-color(white);
    }
 
    &.nav__link--active {
-      background-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+      background-color: get-color(white, $opacity: 0.2);
+      box-shadow: 2px 2px 10px get-color(black, $opacity: 0.2);
    }
 }

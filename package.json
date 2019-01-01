@@ -35,6 +35,7 @@
    },
    "scripts": {
       "commit": "git-cz",
+      "pre-push": "npm run lint",
       "postinstall": "npm run e2e:update-webdriver",
       "start": "ng serve",
       "build": "npm run build:client && npm run build:server",

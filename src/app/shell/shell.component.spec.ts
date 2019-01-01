@@ -42,10 +42,6 @@ describe('ShellComponent', () => {
       it('should render title in a h1 tag', async(() => {
          expect(element.querySelector('h1').textContent).toContain('Portfolio');
       }));
-
-      it('should match the snapshot', async(() => {
-         expect(fixture).toMatchSnapshot();
-      }));
    });
 
    describe('in server', async () => {
@@ -70,9 +66,5 @@ describe('ShellComponent', () => {
       it('should create', () => {
          expect(component).toBeTruthy();
       });
-
-      it('should match the snapshot', async(() => {
-         expect(fixture).toMatchSnapshot();
-      }));
    });
 });

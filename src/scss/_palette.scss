@@ -1,17 +1,40 @@
 /**
  * Palette generated at: https://coolors.co/1e5670-de5f5a-e5bb1b-96f2a0-5f7a86
  * Inspiration: https://visme.co/blog/website-color-schemes/
+ * Accessibility check: https://webaim.org/resources/contrastchecker/
  */
 
 $palette: (
    white: #fff,
+   light-gray: #e6e5e5,
    yellow: #fcd63f,
    pink: #de5f5a,
    blue: #1e5670,
    green: #8ce580,
    gray: #5f7a86,
+   black: #000,
 );
 
-@function color($name) {
-   @return map-get($map: $palette, $key: $name);
+@function get-color($name, $opacity: 1, $lighten: 0, $darken: 0) {
+   $color: map-get(
+      $map: $palette,
+      $key: $name,
+   );
+
+   @if ($opacity != 1) {
+      @return rgba($color, $opacity);
+   } @else if ($lighten != 0) {
+      @return lighten($color, $lighten);
+   } @else if ($darken != 0) {
+      @return darken($color, $darken);
+   } @else {
+      @return $color;
+   }
+}
+
+@mixin theme($name) {
+   @if ($name == 'dark') {
+      color: get-color(light-gray);
+      background-color: get-color(blue);
+   }
 }
