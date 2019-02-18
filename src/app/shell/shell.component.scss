@@ -34,6 +34,7 @@ a:active {
    display: block;
    flex: 1 0 auto;
    margin: 0.25rem 0;
+   font-size: 2em;
 
    & a {
       transition: transition(all);
@@ -50,6 +51,7 @@ a:active {
    flex: 0 1 auto;
    margin: 0;
    padding: 0;
+   list-style-type: none;
 }
 
 .nav--link {

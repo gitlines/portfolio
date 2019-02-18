@@ -8,4 +8,6 @@ Before(() => (page = new AppPage()));
 
 Given('I navigate to this site', () => page.navigateTo());
 
-Then('I should see the welcome message', async () => expect(await page.getText('app-shell h1')).equals('Portfolio'));
+Then('I should see the welcome message', async () =>
+   expect(await page.getText('app-shell header')).equals('Portfolio')
+);

@@ -39,8 +39,8 @@ describe('ShellComponent', () => {
          expect(component.title).toEqual('Portfolio');
       }));
 
-      it('should render title in a h1 tag', async(() => {
-         expect(element.querySelector('h1').textContent).toContain('Portfolio');
+      it('should render title in a header tag', async(() => {
+         expect(element.querySelector('header').textContent).toContain('Portfolio');
       }));
    });
 

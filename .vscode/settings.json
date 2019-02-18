@@ -1,25 +1,10 @@
 {
-   // Workspace
-   "editor.mouseWheelZoom": true,
-   "editor.minimap.renderCharacters": false,
-   "editor.snippetSuggestions": "top",
-   "editor.accessibilitySupport": "off",
-   "editor.fontFamily": "Hack",
-   "window.zoomLevel": 1,
-   "workbench.iconTheme": "material-icon-theme",
-   "workbench.colorTheme": "Monokai",
-   "diffEditor.ignoreTrimWhitespace": false,
-   "files.autoSave": "onWindowChange",
-   "files.eol": "\n",
-   "git.enableSmartCommit": true,
-   "git.confirmSync": false,
-   "git.autofetch": true,
-   "emmet.includeLanguages": {},
-   "npm.enableScriptExplorer": true,
+   "breadcrumbs.enabled": true,
 
-   // Code Style
+   "editor.mouseWheelZoom": true,
    "editor.insertSpaces": true,
    "editor.tabSize": 3,
+   "editor.detectIndentation": false,
    "editor.formatOnPaste": false,
    "editor.formatOnSave": true,
    "editor.formatOnType": false,
@@ -28,34 +13,73 @@
       "strings": true
    },
    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": false
    },
+   "editor.minimap.renderCharacters": false,
+   "editor.snippetSuggestions": "top",
+   "editor.accessibilitySupport": "off",
+   "editor.fontFamily": "Hack",
+
+   "emmet.triggerExpansionOnTab": true,
+   "emmet.showSuggestionsAsSnippets": true,
+   "emmet.includeLanguages": {},
+
+   "explorer.confirmDragAndDrop": false,
+
+   "diffEditor.ignoreTrimWhitespace": false,
+
+   "files.autoSave": "onWindowChange",
+   "files.eol": "\n",
+
+   "git.enableSmartCommit": true,
+   "git.confirmSync": false,
+   "git.autofetch": true,
+
+   "npm.enableScriptExplorer": true,
+
+   "window.zoomLevel": 1,
+
+   "workbench.iconTheme": "material-icon-theme",
+   "workbench.colorTheme": "Monokai",
+
+   // Languages
+   "javascript.preferences.quoteStyle": "single",
+
+   "typescript.updateImportsOnFileMove.enabled": "always",
+   "typescript.tsdk": "node_modules/typescript/lib",
 
    "css.validate": false,
    "less.validate": false,
    "scss.validate": false,
+
    "html.format.wrapLineLength": 120,
    "html.format.wrapAttributes": "auto",
    "html.format.endWithNewline": true,
-   "prettier.disableLanguages": ["html"],
-   "prettier.jsxBracketSameLine": true,
 
    // Extensions settings
-   "tslint.rulesDirectory": "./node_modules/codelyzer",
-   "tslint.autoFixOnSave": true,
    "auto-rename-tag.activationOnLanguage": ["html", "xml"],
    "auto-close-tag.activationOnLanguage": ["html", "xml"],
-   "htmlhint.options": {
-      "doctype-first": false
-   },
+
    "cucumberautocomplete.steps": ["e2e/steps/*.steps.ts"],
    "cucumberautocomplete.syncfeatures": "e2e/features/*.feature",
    "cucumberautocomplete.strictGherkinCompletion": true,
+
+   "htmlhint.options": {
+      "doctype-first": false
+   },
+
+   "prettier.disableLanguages": ["html"],
+   "prettier.jsxBracketSameLine": true,
+
    "testExplorer.codeLens": true,
    "testExplorer.errorDecoration": true,
    "testExplorer.gutterDecoration": true,
 
-   // Specify paths/files to ignore.
+   "tslint.autoFixOnSave": true,
+   "tslint.rulesDirectory": "./node_modules/codelyzer",
+
+   "material-icon-theme.showUpdateMessage": false,
+
    "cSpell.ignorePaths": [
       "node_modules", // this will ignore anything the node_modules directory
       "**/node_modules", // the same for this one
