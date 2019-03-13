@@ -1,6 +1,3 @@
-console.clear();
-require('dotenv').config(); // Load .env
-
 import { SubscriptionServerOptions } from 'apollo-server-core';
 import { ApolloServer, Config } from 'apollo-server-express';
 import chalk from 'chalk';
@@ -16,8 +13,12 @@ import * as morgan from 'morgan';
 import { join } from 'path';
 import * as request from 'request';
 import * as favicon from 'serve-favicon';
+
 import { connectMongo, resolvers, typeDefs } from './db';
 import { cache, CacheConfig, CacheControl, ga, GoogleAnalytics, GoogleAnalyticsConfig } from './middleware';
+
+console.clear();
+require('dotenv').config(); // Load .env
 
 class Server {
    static PORT = parseInt(process.env.PORT) || 5000; // In Heroku port is assigned with an env variable
@@ -124,10 +125,10 @@ class Server {
             subscriptions: {
                ...(<Partial<SubscriptionServerOptions>>Server.GRAPHQL_CONFIG.subscriptions),
                onConnect: (_, webSocket) => {
-                  console.log(chalk.yellow(`WebSockets client connected from ${webSocket._socket.remoteAddress}`));
+                  console.log(chalk.yellow(`WebSockets client connected from ${webSocket.url}`));
                },
                onDisconnect: (webSocket) => {
-                  console.log(chalk.red(`WebSockets client disconnected from ${webSocket._socket.remoteAddress}`));
+                  console.log(chalk.red(`WebSockets client disconnected from ${webSocket.url}`));
                },
             },
          });
