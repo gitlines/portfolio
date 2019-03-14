@@ -1,7 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
+
 import { EMPTY } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
+
 import { GraphQlTestingController, GraphQlTestingModule, TransferStateMock } from '../testing';
 import { GraphQlService } from './graphql.service';
 
@@ -10,7 +12,7 @@ describe('GraphQl GraphQlService', () => {
    let graphqlTesting: GraphQlTestingController;
    let transferState: TransferStateMock;
 
-   beforeEach(async(() => {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [GraphQlTestingModule],
       });
@@ -18,7 +20,7 @@ describe('GraphQl GraphQlService', () => {
       service = TestBed.get(GraphQlService);
       graphqlTesting = TestBed.get(GraphQlTestingController);
       transferState = TestBed.get(TransferState);
-   }));
+   });
 
    afterEach(() => {
       graphqlTesting.verify();

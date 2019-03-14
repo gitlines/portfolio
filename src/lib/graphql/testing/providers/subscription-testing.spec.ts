@@ -1,17 +1,18 @@
 import { async, TestBed } from '@angular/core/testing';
+
 import { GraphQlTestingModule } from '../graphql-testing.module';
 import { SubscriptionTestingClient } from './subscription-testing';
 
 describe('GraphQl SubscriptionTestingClient', () => {
    let subscriptionTesting: SubscriptionTestingClient;
 
-   beforeEach(async(() => {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [GraphQlTestingModule],
       });
 
       subscriptionTesting = TestBed.get(SubscriptionTestingClient);
-   }));
+   });
 
    it('should declare the provider', () => {
       expect(subscriptionTesting).toBeTruthy();

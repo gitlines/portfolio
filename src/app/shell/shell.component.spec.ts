@@ -1,6 +1,8 @@
 import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { Angulartics2GoogleGlobalSiteTag } from 'angulartics2/gst';
+
 import { ShellComponent } from './shell.component';
 
 class MockAngulartics {
@@ -12,8 +14,8 @@ describe('ShellComponent', () => {
    let fixture: ComponentFixture<ShellComponent>;
    let element: any;
 
-   describe('in browser', async () => {
-      beforeEach(async(() => {
+   describe('in browser', () => {
+      beforeEach(() => {
          TestBed.configureTestingModule({
             declarations: [ShellComponent],
             providers: [
@@ -22,7 +24,7 @@ describe('ShellComponent', () => {
             ],
             schemas: [NO_ERRORS_SCHEMA],
          }).compileComponents();
-      }));
+      });
 
       beforeEach(() => {
          fixture = TestBed.createComponent(ShellComponent);
@@ -44,8 +46,8 @@ describe('ShellComponent', () => {
       }));
    });
 
-   describe('in server', async () => {
-      beforeEach(async(() => {
+   describe('in server', () => {
+      beforeEach(() => {
          TestBed.configureTestingModule({
             declarations: [ShellComponent],
             providers: [
@@ -54,7 +56,7 @@ describe('ShellComponent', () => {
             ],
             schemas: [NO_ERRORS_SCHEMA],
          }).compileComponents();
-      }));
+      });
 
       beforeEach(() => {
          fixture = TestBed.createComponent(ShellComponent);

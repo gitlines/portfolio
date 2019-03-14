@@ -16,6 +16,7 @@ import * as morgan from 'morgan';
 import { join } from 'path';
 import * as request from 'request';
 import * as favicon from 'serve-favicon';
+
 import { connectMongo, resolvers, typeDefs } from './db';
 import { cache, CacheConfig, CacheControl, ga, GoogleAnalytics, GoogleAnalyticsConfig } from './middleware';
 
@@ -123,10 +124,10 @@ class Server {
             resolvers,
             subscriptions: {
                ...(<Partial<SubscriptionServerOptions>>Server.GRAPHQL_CONFIG.subscriptions),
-               onConnect: (_, webSocket) => {
+               onConnect: (_, webSocket: any) => {
                   console.log(chalk.yellow(`WebSockets client connected from ${webSocket._socket.remoteAddress}`));
                },
-               onDisconnect: (webSocket) => {
+               onDisconnect: (webSocket: any) => {
                   console.log(chalk.red(`WebSockets client disconnected from ${webSocket._socket.remoteAddress}`));
                },
             },

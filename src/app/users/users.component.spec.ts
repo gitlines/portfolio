@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GraphQlTestingController, GraphQlTestingModule } from '@lib/graphql/testing';
+
 import { User } from './models';
 import { UsersComponent } from './users.component';
 import { UsersModule } from './users.module';
@@ -10,11 +11,11 @@ describe('UsersComponent', () => {
    let fixture: ComponentFixture<UsersComponent>;
    let element: any;
 
-   beforeEach(async(() => {
+   beforeEach(() => {
       TestBed.configureTestingModule({
          imports: [GraphQlTestingModule, UsersModule],
       }).compileComponents();
-   }));
+   });
 
    beforeEach(() => {
       graphqlTesting = TestBed.get(GraphQlTestingController);
