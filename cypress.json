@@ -1,0 +1,12 @@
+{
+   "baseUrl": "http://localhost:5000",
+   "ignoreTestFiles": "*.{js,ts}",
+   "reporter": "mochawesome",
+   "reporterOptions": {
+      "overwrite": false,
+      "html": false,
+      "json": true
+   },
+   "video": false,
+   "chromeWebSecurity": false
+}

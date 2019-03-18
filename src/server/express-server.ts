@@ -87,7 +87,8 @@ class Server {
 
    private cors() {
       // Configure whitelist differently depending if in production or development
-      let whitelist: string[] = process.env.NODE_ENV === 'production' ? [process.env.HOST] : Server.CORS_WHITELIST;
+      const isProduction: boolean = process.env.NODE_ENV === 'production' && !!process.env.HOST;
+      let whitelist: string[] = isProduction ? [process.env.HOST] : Server.CORS_WHITELIST;
       whitelist = whitelist.filter((host) => !!host).map((host) => host.replace(/\/$/, '')); // Remove trailing "/"
 
       const corsOptions: cors.CorsOptions = {

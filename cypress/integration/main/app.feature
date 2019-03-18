@@ -1,4 +1,4 @@
-Feature: App
+Feature: Main app
    As a developer using Angular
    I want to use Behavior-Driven Development
    To be happier
