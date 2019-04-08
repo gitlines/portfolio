@@ -102,7 +102,7 @@
       "is-heroku": "^2.0.0",
       "memory-cache": "^0.2.0",
       "mongodb": "^3.1.10",
-      "mongoose": "^5.4.19",
+      "mongoose": "5.4.22",
       "morgan": "^1.9.1",
       "normalize.css": "^8.0.1",
       "path-to-regexp": "^3.0.0",
