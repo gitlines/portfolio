@@ -182,7 +182,7 @@
       "mochawesome": "^3.1.1",
       "mochawesome-merge": "^1.0.7",
       "mochawesome-report-generator": "^3.1.5",
-      "nodemon": "^1.18.9",
+      "nodemon": "^1.19.0",
       "nugget": "^2.0.1",
       "octonode": "^0.9.2",
       "prettier": "^1.15.3",
