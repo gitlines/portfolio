@@ -140,7 +140,7 @@
       "@types/node": "^11.11.3",
       "@types/request": "^2.48.1",
       "@types/serve-favicon": "^2.2.30",
-      "apollo": "^2.6.1",
+      "apollo": "^2.12.1",
       "bluebird": "^3.5.3",
       "chai": "^4.1.2",
       "chrome-launcher": "^0.10.2",
