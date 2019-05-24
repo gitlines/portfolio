@@ -141,7 +141,7 @@
       "@types/request": "^2.48.1",
       "@types/serve-favicon": "^2.2.30",
       "apollo": "^2.6.1",
-      "bluebird": "^3.5.3",
+      "bluebird": "^3.5.5",
       "chai": "^4.1.2",
       "chrome-launcher": "^0.10.2",
       "codacy-coverage": "^3.4.0",
