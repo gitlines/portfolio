@@ -120,7 +120,7 @@
       "@angular/language-service": "^7.2.4",
       "@commitlint/cli": "^7.3.2",
       "@commitlint/config-conventional": "^7.3.1",
-      "@compodoc/compodoc": "^1.1.9",
+      "@compodoc/compodoc": "^1.1.10",
       "@cypress/webpack-preprocessor": "^4.0.3",
       "@types/body-parser": "^1.17.0",
       "@types/chai": "^4.1.4",
