@@ -136,7 +136,7 @@
       "@types/memory-cache": "^0.2.0",
       "@types/mongodb": "^3.1.22",
       "@types/mongoose": "^5.3.22",
-      "@types/morgan": "^1.7.35",
+      "@types/morgan": "^1.7.36",
       "@types/node": "^11.11.3",
       "@types/request": "^2.48.1",
       "@types/serve-favicon": "^2.2.30",
