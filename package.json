@@ -175,7 +175,7 @@
       "imagemin-mozjpeg": "^8.0.0",
       "jest": "^24.5.0",
       "jest-preset-angular": "^7.0.1",
-      "js-beautify": "^1.9.0",
+      "js-beautify": "^1.10.1",
       "lighthouse": "^4.2.0",
       "lint-staged": "^8.1.5",
       "mocha": "^3.5.3",
