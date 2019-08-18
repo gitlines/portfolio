@@ -163,7 +163,7 @@
       "gulp": "^4.0.0",
       "gulp-cheerio": "^0.6.3",
       "gulp-html-postcss": "^7.1.4",
-      "gulp-imagemin": "^5.0.3",
+      "gulp-imagemin": "^6.1.0",
       "gulp-inline-source": "^4.0.0",
       "gulp-postcss": "^8.0.0",
       "gulp-purifycss": "^0.2.0",
