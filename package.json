@@ -177,7 +177,7 @@
       "jest-preset-angular": "^7.0.1",
       "js-beautify": "^1.9.0",
       "lighthouse": "^4.2.0",
-      "lint-staged": "^8.1.5",
+      "lint-staged": "^9.2.5",
       "mocha": "^3.5.3",
       "mochawesome": "^3.1.1",
       "mochawesome-merge": "^1.0.7",
