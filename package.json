@@ -123,7 +123,7 @@
       "@compodoc/compodoc": "^1.1.9",
       "@cypress/webpack-preprocessor": "^4.0.3",
       "@types/body-parser": "^1.17.0",
-      "@types/chai": "^4.1.4",
+      "@types/chai": "^4.2.1",
       "@types/cheerio": "^0.22.11",
       "@types/compression": "0.0.36",
       "@types/cookie-parser": "^1.4.1",
