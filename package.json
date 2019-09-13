@@ -86,7 +86,7 @@
       "@nguniversal/common": "^7.0.2",
       "@nguniversal/express-engine": "^7.0.2",
       "@nguniversal/module-map-ngfactory-loader": "^7.0.2",
-      "angulartics2": "^7.4.0",
+      "angulartics2": "^8.1.0",
       "apollo-server-express": "^2.4.8",
       "chalk": "^2.4.2",
       "cheerio": "^1.0.0-rc.2",
