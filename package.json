@@ -158,7 +158,7 @@
       "eslint-plugin-import": "^2.13.0",
       "eslint-plugin-node": "^8.0.1",
       "eslint-plugin-prettier": "^3.0.1",
-      "eslint-plugin-unicorn": "^7.0.0",
+      "eslint-plugin-unicorn": "^11.0.0",
       "fs-extra": "^7.0.1",
       "gulp": "^4.0.0",
       "gulp-cheerio": "^0.6.3",
