@@ -105,7 +105,7 @@
       "mongoose": "^5.4.19",
       "morgan": "^1.9.1",
       "normalize.css": "^8.0.1",
-      "path-to-regexp": "^3.0.0",
+      "path-to-regexp": "^4.0.3",
       "reflect-metadata": "^0.1.12",
       "request": "^2.88.0",
       "rxjs": "^6.4.0",
