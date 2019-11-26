@@ -101,7 +101,7 @@
       "heroku-ssl-redirect": "^0.0.4",
       "is-heroku": "^2.0.0",
       "memory-cache": "^0.2.0",
-      "mongodb": "^3.1.10",
+      "mongodb": "^3.3.5",
       "mongoose": "^5.4.19",
       "morgan": "^1.9.1",
       "normalize.css": "^8.0.1",
